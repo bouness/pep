@@ -1,0 +1,600 @@
+[
+  {
+    "id": "loads-wind-001",
+    "title": "MWFRS Wind Pressure on Low-Rise Building",
+    "code": "ASCE 7-16",
+    "codeSection": "Chapter 27, Part 1",
+    "difficulty": "Difficult",
+    "category": "analysis-loads",
+    "subcategory": "Wind loads",
+    "problem": "{5+5} - A one-story commercial building is being designed for wind loads on the Main Wind Force Resisting System (MWFRS). The building is located in Dallas, Texas, and has a rectangular plan dimensions of 120 ft × 80 ft with a flat roof at an eave height of 24 ft. The building has a Risk Category II classification and is located in Exposure B with a topographic factor $K_{zt} = 1.0$. Determine the design wind pressure on the windward wall using the directional procedure.",
+    "given": [
+      "{PI*5^2} Basic wind speed $V = 115$ mph (from ASCE 7-16 Figure 26.5-1A for Risk Category II)",
+      "Building dimensions: 120 ft × 80 ft plan, 24 ft eave height",
+      "Flat roof ($\\theta = 0°$)",
+      "Risk Category II",
+      "Exposure B",
+      "Topographic factor $K_{zt} = 1.0$",
+      "Directional procedure (Chapter 27, Part 1)"
+    ],
+    "required": "Calculate the design wind pressure ($p$) on the windward wall at the mean roof height.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Velocity Pressure Coefficient $K_z$",
+        "content": "From ASCE 7-16 Table 26.10-1, for Exposure B at height $z = 24$ ft (mean roof height for flat roof):\n\n$K_z = 0.70$ (interpolated between 0.57 at 15 ft and 0.70 at 30 ft)"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Velocity Pressure $q_z$",
+        "content": "Using ASCE 7-16 Equation 26.10-1:\n\n$$q_z = 0.00256 \\times K_z \\times K_{zt} \\times K_d \\times K_e \\times V^2$$\n\nWhere $K_d = 0.85$ (MWFRS, Table 26.6-1), $K_e = 1.0$ (sea level), $K_{zt} = 1.0$\n\n$$q_z = 0.00256 \\times 0.70 \\times 1.0 \\times 0.85 \\times 1.0 \\times (115)^2$$\n\n$$q_z = 0.00256 \\times 0.70 \\times 0.85 \\times 13,225 = 20.05 \\text{ psf}$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Internal Pressure Coefficient $GC_{pi}$",
+        "content": "From ASCE 7-16 Table 26.11-1, for enclosed building:\n\n$$GC_{pi} = \\pm 0.18$$"
+      },
+      {
+        "step": 4,
+        "title": "Determine External Pressure Coefficient $C_p$",
+        "content": "From ASCE 7-16 Figure 27.3-1, for windward wall:\n\n$L/B = 120/80 = 1.5$\n\nFor windward wall, $C_p = 0.8$ (constant with height per Figure 27.3-1 notes)"
+      },
+      {
+        "step": 5,
+        "title": "Calculate Design Wind Pressure $p$",
+        "content": "Using ASCE 7-16 Equation 27.3-1:\n\n$$p = q_z \\times G \\times C_p - q_i \\times GC_{pi}$$\n\nFor rigid building, $G = 0.85$ (or calculate using Section 26.11).\n\nAssuming $G = 0.85$.\n\nFor positive internal pressure (worst case for windward wall):\n\n$$p = 20.05 \\times 0.85 \\times 0.8 - 20.05 \\times 0.18$$\n\n$$p = 13.63 - 3.61 = 10.02 \\text{ psf}$$\n\nFor negative internal pressure:\n\n$$p = 20.05 \\times 0.85 \\times 0.8 + 20.05 \\times 0.18$$\n\n$$p = 13.63 + 3.61 = 17.24 \\text{ psf}$$"
+      }
+    ],
+    "final_answer": "The design wind pressure on the windward wall is $17.24$ psf (controlling case with negative internal pressure). This is the pressure that should be used for MWFRS design.",
+    "units": "psf",
+    "answer_value": 17.24
+  },
+  {
+    "id": "loads-wind-002",
+    "title": "Components & Cladding Wind Pressure on Wall",
+    "code": "ASCE 7-16",
+    "codeSection": "Chapter 30, Part 3",
+    "difficulty": "Moderate",
+    "category": "analysis-loads",
+    "subcategory": "Wind loads",
+    "problem": "Determine the design wind pressure for Components and Cladding (C&C) on the wall of an enclosed office building. The building has a mean roof height of 35 ft, is located in Miami, Florida, with a Risk Category III classification. The wall panel under consideration has an effective wind area of 50 sq ft. Use Exposure C conditions.",
+    "given": [
+      "Basic wind speed $V = 170$ mph (Miami, Risk Category III, ASCE 7-16 Figure 26.5-1B)",
+      "Mean roof height $h = 35$ ft",
+      "Effective wind area $A = 50$ sq ft",
+      "Risk Category III",
+      "Exposure C",
+      "Enclosed building",
+      "Topographic factor $K_{zt} = 1.0$"
+    ],
+    "required": "Calculate the design wind pressure for C&C on the wall panel at height $z = 35$ ft.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Velocity Pressure Coefficient $K_z$",
+        "content": "From ASCE 7-16 Table 26.10-1, for Exposure C at height $z = 35$ ft:\n\n$$K_z = 1.01$$ (interpolated between 0.98 at 30 ft and 1.03 at 40 ft)"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Velocity Pressure $q_h$",
+        "content": "Using ASCE 7-16 Equation 26.10-1:\n\n$$q_h = 0.00256 \\times K_z \\times K_{zt} \\times K_d \\times K_e \\times V^2$$\n\nWhere $K_d = 0.85$ (C&C, Table 26.6-1), $K_e = 1.0$\n\n$$q_h = 0.00256 \\times 1.01 \\times 1.0 \\times 0.85 \\times 1.0 \\times (170)^2$$\n\n$$q_h = 0.00256 \\times 1.01 \\times 0.85 \\times 28,900 = 63.36 \\text{ psf}$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine External Pressure Coefficients $GC_p$",
+        "content": "From ASCE 7-16 Figure 30.3-1, for walls of enclosed buildings.\n\nFor effective wind area = 50 sq ft:\n\n**Zone 4 (wall interior):**\n- $GC_p(positive) = 0.91$\n- $GC_p(negative) = -1.05$\n\n**Zone 5 (wall edges/corners):**\n- $GC_p(positive) = 0.91$\n- $GC_p(negative) = -1.33$"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Design Wind Pressure",
+        "content": "Using ASCE 7-16 Equation 30.3-1:\n\n$$p = q_h \\times (GC_p - GC_{pi})$$\n\nFor enclosed building, $GC_{pi} = \\pm 0.18$\n\n**For Zone 4 interior wall:**\n\n$$p(positive \\ external + negative \\ internal) = 63.36 \\times (0.91 - (-0.18))$$\n\n$$= 63.36 \\times 1.09 = 69.1 \\text{ psf}$$\n\n$$p(negative \\ external + positive \\ internal) = 63.36 \\times (-1.05 - 0.18)$$\n\n$$= 63.36 \\times (-1.23) = -77.9 \\text{ psf}$$"
+      }
+    ],
+    "final_answer": "The design wind pressures for C&C on the wall panel are $+69.1$ psf (positive/inward) and $-77.9$ psf (negative/outward). The controlling pressure for design is $77.9$ psf outward suction.",
+    "units": "psf",
+    "answer_value": 77.9
+  },
+  {
+    "id": "loads-seismic-001",
+    "title": "Seismic Base Shear for Reinforced Concrete Building",
+    "code": "ASCE 7-16",
+    "codeSection": "Chapter 12",
+    "difficulty": "Difficult",
+    "category": "analysis-loads",
+    "subcategory": "Seismic loads",
+    "problem": "A 5-story reinforced concrete special moment frame building is being designed in Los Angeles, California. The building has a total weight of 25,000 kips and a fundamental period of 0.85 seconds. The site is classified as Site Class D with mapped spectral accelerations $S_s = 1.85g$ and $S_1 = 0.65g$. Determine the seismic base shear using the equivalent lateral force procedure.",
+    "given": [
+      "Building type: Reinforced concrete special moment frame",
+      "Number of stories: 5",
+      "Total building weight $W = 25,000$ kips",
+      "Fundamental period $T = 0.85$ seconds",
+      "Site Class: D",
+      "Mapped spectral accelerations: $S_s = 1.85g$, $S_1 = 0.65g$",
+      "Risk Category II",
+      "Seismic Design Category D"
+    ],
+    "required": "Calculate the seismic base shear $V$ using the equivalent lateral force procedure.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Site Coefficients $F_a$ and $F_v$",
+        "content": "From ASCE 7-16 Tables 11.4-1 and 11.4-2:\n\nFor Site Class D with $S_s = 1.85g$:\n$$F_a = 1.0$$\n\nFor Site Class D with $S_1 = 0.65g$:\n$$F_v = 1.5$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Adjusted Spectral Accelerations",
+        "content": "Using ASCE 7-16 Equations 11.4-1 and 11.4-2:\n\n$$S_{MS} = F_a \\times S_s = 1.0 \\times 1.85 = 1.85g$$\n\n$$S_{M1} = F_v \\times S_1 = 1.5 \\times 0.65 = 0.975g$$\n\nThen, $S_{DS}$ and $S_{D1}$:\n\n$$S_{DS} = \\frac{2}{3} \\times S_{MS} = \\frac{2}{3} \\times 1.85 = 1.23g$$\n\n$$S_{D1} = \\frac{2}{3} \\times S_{M1} = \\frac{2}{3} \\times 0.975 = 0.65g$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Response Modification Factor $R$",
+        "content": "From ASCE 7-16 Table 12.2-1, for reinforced concrete special moment frame (Type C1):\n\n$$R = 8, \\quad \\Omega_0 = 3, \\quad C_d = 5.5$$"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Seismic Response Coefficient $C_s$",
+        "content": "Using ASCE 7-16 Equation 12.8-2:\n\n$$C_s = \\frac{S_{DS}}{R/I_e}$$\n\nFor Risk Category II, $I_e = 1.0$\n\n$$C_s = \\frac{1.23}{8/1.0} = 0.154$$\n\n**Check upper limit** from Equation 12.8-3:\n\n$$C_s \\leq \\frac{S_{D1}}{T \\times R/I_e} = \\frac{0.65}{0.85 \\times 8/1.0} = 0.096$$\n\n**Controlling $C_s = 0.096$** (upper limit governs)"
+      },
+      {
+        "step": 5,
+        "title": "Calculate Seismic Base Shear $V$",
+        "content": "Using ASCE 7-16 Equation 12.8-1:\n\n$$V = C_s \\times W = 0.096 \\times 25,000 \\text{ kips} = 2,400 \\text{ kips}$$"
+      }
+    ],
+    "final_answer": "The seismic base shear $V = 2,400$ kips. Note: The upper limit of $C_s$ governed because the building period $T = 0.85$ sec is less than $T_L$ (typically 8-12 seconds for most of California).",
+    "units": "kips",
+    "answer_value": 2400
+  },
+  {
+    "id": "loads-seismic-002",
+    "title": "Vertical Distribution of Seismic Forces",
+    "code": "ASCE 7-16",
+    "codeSection": "Section 12.8.3",
+    "difficulty": "Moderate",
+    "category": "analysis-loads",
+    "subcategory": "Seismic loads",
+    "problem": "A 6-story steel building has a calculated seismic base shear of 450 kips. The story weights and heights are: Floor 1 (base): 0 kips at 0 ft; Floor 2: 600 kips at 15 ft; Floor 3: 580 kips at 28 ft; Floor 4: 560 kips at 41 ft; Floor 5: 550 kips at 54 ft; Floor 6 (roof): 400 kips at 67 ft. The fundamental period $T = 0.65$ seconds. Distribute the seismic forces to each floor level.",
+    "given": [
+      "Seismic base shear $V = 450$ kips",
+      "Fundamental period $T = 0.65$ seconds",
+      "Floor 2: $w_2 = 600$ kips at $h_2 = 15$ ft",
+      "Floor 3: $w_3 = 580$ kips at $h_3 = 28$ ft",
+      "Floor 4: $w_4 = 560$ kips at $h_4 = 41$ ft",
+      "Floor 5: $w_5 = 550$ kips at $h_5 = 54$ ft",
+      "Floor 6 (roof): $w_6 = 400$ kips at $h_6 = 67$ ft",
+      "Total building weight $W = 2,690$ kips"
+    ],
+    "required": "Calculate the seismic force at each floor level using the vertical distribution procedure.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Exponent $k$",
+        "content": "From ASCE 7-16 Section 12.8.3, the exponent $k$ depends on building period:\n\n- For $T \\leq 0.5$ sec: $k = 1.0$\n- For $T \\geq 2.5$ sec: $k = 2.0$\n- For $0.5 < T < 2.5$ sec:\n\n$$k = 1.0 + 0.5(T - 0.5) = 1.0 + 0.5(0.65 - 0.5) = 1.075$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Distribution Factor $C_{vx}$",
+        "content": "$$C_{vx} = \\frac{w_x \\times h_x^k}{\\sum(w_i \\times h_i^k)}$$\n\nCalculate $w_i \\times h_i^k$ for each floor:\n\n- Floor 2: $600 \\times (15)^{1.075} = 10,470$\n- Floor 3: $580 \\times (28)^{1.075} = 19,975$\n- Floor 4: $560 \\times (41)^{1.075} = 29,165$\n- Floor 5: $550 \\times (54)^{1.075} = 38,660$\n- Floor 6: $400 \\times (67)^{1.075} = 35,616$\n\n$$\\sum(w_i \\times h_i^k) = 133,886$$"
+      },
+      {
+        "step": 3,
+        "title": "Calculate $C_{vx}$ for Each Floor",
+        "content": "$$C_{v2} = 0.078, \\quad C_{v3} = 0.149, \\quad C_{v4} = 0.218$$\n$$C_{v5} = 0.289, \\quad C_{v6} = 0.266$$\n\nCheck: $\\sum C_{vx} = 1.000$ ✓"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Seismic Force at Each Floor",
+        "content": "$$F_x = C_{vx} \\times V$$\n\n- $F_2 = 35.1$ kips\n- $F_3 = 67.1$ kips\n- $F_4 = 98.1$ kips\n- $F_5 = 130.1$ kips\n- $F_6 = 119.7$ kips\n\nCheck: $\\sum F_x = 450$ kips ✓"
+      }
+    ],
+    "final_answer": "Seismic forces at each floor level: $F_2 = 35.1$ kips, $F_3 = 67.1$ kips, $F_4 = 98.1$ kips, $F_5 = 130.1$ kips, $F_6 = 119.7$ kips. Total = 450 kips.",
+    "units": "kips",
+    "answer_value": 450
+  },
+  {
+    "id": "loads-snow-001",
+    "title": "Flat Roof Snow Load Calculation",
+    "code": "ASCE 7-16",
+    "codeSection": "Chapter 7",
+    "difficulty": "Moderate",
+    "category": "analysis-loads",
+    "subcategory": "Snow",
+    "problem": "Determine the design flat roof snow load for an office building located in Denver, Colorado. The building has a flat roof at an elevation of 5,500 feet. The roof is partially exposed, and the building is located in Terrain Category B. The building has a Risk Category II classification. The ground snow load from ASCE 7-16 Figure 7.2-1 is $p_g = 18$ psf.",
+    "given": [
+      "Location: Denver, Colorado",
+      "Ground snow load $p_g = 18$ psf",
+      "Roof slope: Flat ($\\theta = 0°$)",
+      "Roof exposure: Partially exposed",
+      "Terrain Category: B",
+      "Risk Category: II",
+      "Elevation: 5,500 ft"
+    ],
+    "required": "Calculate the design flat roof snow load $p_f$.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Exposure Factor $C_e$",
+        "content": "From ASCE 7-16 Table 7.3-1, for Terrain Category B and partially exposed roof:\n\n$$C_e = 1.0$$"
+      },
+      {
+        "step": 2,
+        "title": "Determine Thermal Factor $C_t$",
+        "content": "From ASCE 7-16 Table 7.3-2, for heated structure:\n\n$$C_t = 1.0$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Importance Factor $I_s$",
+        "content": "From ASCE 7-16 Table 1.5-2, for Risk Category II:\n\n$$I_s = 1.0$$"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Flat Roof Snow Load",
+        "content": "Using ASCE 7-16 Equation 7.3-1:\n\n$$p_f = 0.7 \\times C_e \\times C_t \\times I_s \\times p_g$$\n\n$$p_f = 0.7 \\times 1.0 \\times 1.0 \\times 1.0 \\times 18 = 12.6 \\text{ psf}$$"
+      },
+      {
+        "step": 5,
+        "title": "Check Minimum Snow Load",
+        "content": "Per ASCE 7-16 Section 7.3.4:\n\n$$p_{f,min} = I_s \\times p_g = 1.0 \\times 18 = 18 \\text{ psf}$$\n\nSince $p_f = 12.6$ psf $< p_{f,min} = 18$ psf, use $p_f = 18$ psf."
+      }
+    ],
+    "final_answer": "The design flat roof snow load is $p_f = 18$ psf (minimum snow load governs).",
+    "units": "psf",
+    "answer_value": 18
+  },
+  {
+    "id": "loads-combinations-001",
+    "title": "Load Combinations for Beam Design",
+    "code": "IBC 2018 / ASCE 7-16",
+    "codeSection": "Section 1605",
+    "difficulty": "Moderate",
+    "category": "analysis-loads",
+    "subcategory": "Load combinations",
+    "problem": "A simply supported floor beam has the following service loads: Dead load = 2.5 kip/ft, Live load = 3.0 kip/ft, Roof live load = 1.2 kip/ft, Snow load = 1.5 kip/ft. Determine the factored load for LRFD design and the allowable stress design load. The beam spans 24 feet.",
+    "given": [
+      "Span $L = 24$ ft",
+      "Dead load $D = 2.5$ kip/ft",
+      "Live load $L = 3.0$ kip/ft",
+      "Roof live load $L_r = 1.2$ kip/ft",
+      "Snow load $S = 1.5$ kip/ft"
+    ],
+    "required": "Determine the controlling factored load for LRFD and ASD.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Identify Applicable Loads",
+        "content": "Floor live load $L$ and roof live load $L_r$ are independent and should not be combined simultaneously in the same load combination according to ASCE 7-16 Section 2.3.2.\n\nFor this problem, we check combinations for:\n- Floor beam: $D + L$\n- Roof load contribution: $D + S$ or $D + L_r$"
+      },
+      {
+        "step": 2,
+        "title": "LRFD Load Combinations (ASCE 7-16 Section 2.3)",
+        "content": "**Combo 1:** $1.4D = 1.4 \\times 2.5 = 3.5$ kip/ft\n\n**Combo 2:** $1.2D + 1.6L + 0.5S$\n$= 1.2(2.5) + 1.6(3.0) + 0.5(1.5) = 3.0 + 4.8 + 0.75 = 8.55$ kip/ft\n\n**Combo 3:** $1.2D + 1.6S + 0.5L$\n$= 1.2(2.5) + 1.6(1.5) + 0.5(3.0) = 3.0 + 2.4 + 1.5 = 6.9$ kip/ft\n\n**Controlling LRFD:** $w_u = 8.55$ kip/ft"
+      },
+      {
+        "step": 3,
+        "title": "ASD Load Combinations (ASCE 7-16 Section 2.4)",
+        "content": "**Combo 1:** $D = 2.5$ kip/ft\n\n**Combo 2:** $D + L = 2.5 + 3.0 = 5.5$ kip/ft\n\n**Combo 3:** $D + 0.75L + 0.75S$\n$= 2.5 + 0.75(3.0) + 0.75(1.5) = 2.5 + 2.25 + 1.125 = 5.875$ kip/ft\n\n**Controlling ASD:** $w_a = 5.875$ kip/ft"
+      }
+    ],
+    "final_answer": "Controlling LRFD factored load: $w_u = 8.55$ kip/ft. Controlling ASD load: $w_a = 5.88$ kip/ft. The LRFD combination with floor live load governs.",
+    "units": "kip/ft",
+    "answer_value": 8.55
+  },
+  {
+    "id": "test-math-001",
+    "title": "Test Math Expression Evaluation",
+    "code": "Test",
+    "codeSection": "Test",
+    "difficulty": "Moderate",
+    "category": "analysis-loads",
+    "subcategory": "Wind loads",
+    "problem": "This problem demonstrates math expression evaluation. The area of a circle with radius 5 ft is {PI*5^2} sq ft. The $K_{zt}$ factor is still rendered correctly as LaTeX subscript. Additional calculations: sqrt(144) = {sqrt(144)}, 2^10 = {2^10}, sin(PI/6) = {sin(PI/6)}.",
+    "given": [
+      "Radius r = 5 ft",
+      "Area = πr² = {PI*5^2} sq ft (auto-calculated)",
+      "Circumference = 2πr = {2*PI*5} ft",
+      "Volume of sphere = (4/3)πr³ = {4/3*PI*5^3} cu ft",
+      "Test with $K_{zt}$ subscript - the {zt} should NOT be evaluated"
+    ],
+    "required": "Verify that expressions in {braces} are evaluated and LaTeX like $K_{zt}$ is preserved.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Area Calculation",
+        "content": "Area = πr² = π × 5² = {PI*25} sq ft = {PI*5^2} sq ft ≈ 78.54 sq ft"
+      },
+      {
+        "step": 2,
+        "title": "Volume Calculation",
+        "content": "Volume = (4/3)πr³ = {4/3*PI*125} cu ft = {4/3*PI*5^3} cu ft ≈ 523.6 cu ft"
+      },
+      {
+        "step": 3,
+        "title": "Test LaTeX Preservation",
+        "content": "The variable $K_{zt}$ should display with subscript 'zt'. The expression {sqrt(100)} = 10 should be evaluated. The value $V = 115$ mph should show V in LaTeX."
+      }
+    ],
+    "final_answer": "Area = {PI*5^2} sq ft ≈ 78.54 sq ft. LaTeX subscripts like $K_{zt}$ are preserved correctly.",
+    "units": "sq ft",
+    "answer_value": 78.54
+  },
+  {
+    "id": "loads-wind-001",
+    "title": "MWFRS Wind Pressure on Low-Rise Building",
+    "code": "ASCE 7-16",
+    "codeSection": "Chapter 27, Part 1",
+    "difficulty": "Difficult",
+    "category": "analysis-loads",
+    "subcategory": "Wind loads",
+    "problem": "A one-story commercial building is being designed for wind loads on the Main Wind Force Resisting System (MWFRS). The building is located in Dallas, Texas, and has a rectangular plan dimensions of 120 ft × 80 ft with a flat roof at an eave height of 24 ft. The building has a Risk Category II classification and is located in Exposure B with a topographic factor $K_{zt} = 1.0$. Determine the design wind pressure on the windward wall using the directional procedure.",
+    "given": [
+      "Basic wind speed $V = 115$ mph (from ASCE 7-16 Figure 26.5-1A for Risk Category II)",
+      "Building dimensions: 120 ft × 80 ft plan, 24 ft eave height",
+      "Flat roof ($\\theta = 0°$)",
+      "Risk Category II",
+      "Exposure B",
+      "Topographic factor $K_{zt} = 1.0$",
+      "Directional procedure (Chapter 27, Part 1)"
+    ],
+    "required": "Calculate the design wind pressure ($p$) on the windward wall at the mean roof height.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Velocity Pressure Coefficient $K_z$",
+        "content": "From ASCE 7-16 Table 26.10-1, for Exposure B at height $z = 24$ ft (mean roof height for flat roof):\n\n$K_z = 0.70$ (interpolated between 0.57 at 15 ft and 0.70 at 30 ft)"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Velocity Pressure $q_z$",
+        "content": "Using ASCE 7-16 Equation 26.10-1:\n\n$$q_z = 0.00256 \\times K_z \\times K_{zt} \\times K_d \\times K_e \\times V^2$$\n\nWhere $K_d = 0.85$ (MWFRS, Table 26.6-1), $K_e = 1.0$ (sea level), $K_{zt} = 1.0$\n\n$$q_z = 0.00256 \\times 0.70 \\times 1.0 \\times 0.85 \\times 1.0 \\times (115)^2$$\n\n$$q_z = 0.00256 \\times 0.70 \\times 0.85 \\times 13,225 = 20.05 \\text{ psf}$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Internal Pressure Coefficient $GC_{pi}$",
+        "content": "From ASCE 7-16 Table 26.11-1, for enclosed building:\n\n$$GC_{pi} = \\pm 0.18$$"
+      },
+      {
+        "step": 4,
+        "title": "Determine External Pressure Coefficient $C_p$",
+        "content": "From ASCE 7-16 Figure 27.3-1, for windward wall:\n\n$L/B = 120/80 = 1.5$\n\nFor windward wall, $C_p = 0.8$ (constant with height per Figure 27.3-1 notes)"
+      },
+      {
+        "step": 5,
+        "title": "Calculate Design Wind Pressure $p$",
+        "content": "Using ASCE 7-16 Equation 27.3-1:\n\n$$p = q_z \\times G \\times C_p - q_i \\times GC_{pi}$$\n\nFor rigid building, $G = 0.85$ (or calculate using Section 26.11).\n\nAssuming $G = 0.85$.\n\nFor positive internal pressure (worst case for windward wall):\n\n$$p = 20.05 \\times 0.85 \\times 0.8 - 20.05 \\times 0.18$$\n\n$$p = 13.63 - 3.61 = 10.02 \\text{ psf}$$\n\nFor negative internal pressure:\n\n$$p = 20.05 \\times 0.85 \\times 0.8 + 20.05 \\times 0.18$$\n\n$$p = 13.63 + 3.61 = 17.24 \\text{ psf}$$"
+      }
+    ],
+    "final_answer": "The design wind pressure on the windward wall is $17.24$ psf (controlling case with negative internal pressure). This is the pressure that should be used for MWFRS design.",
+    "units": "psf",
+    "answer_value": 17.24
+  },
+  {
+    "id": "loads-wind-002",
+    "title": "Components & Cladding Wind Pressure on Wall",
+    "code": "ASCE 7-16",
+    "codeSection": "Chapter 30, Part 3",
+    "difficulty": "Moderate",
+    "category": "analysis-loads",
+    "subcategory": "Wind loads",
+    "problem": "Determine the design wind pressure for Components and Cladding (C&C) on the wall of an enclosed office building. The building has a mean roof height of 35 ft, is located in Miami, Florida, with a Risk Category III classification. The wall panel under consideration has an effective wind area of 50 sq ft. Use Exposure C conditions.",
+    "given": [
+      "Basic wind speed $V = 170$ mph (Miami, Risk Category III, ASCE 7-16 Figure 26.5-1B)",
+      "Mean roof height $h = 35$ ft",
+      "Effective wind area $A = 50$ sq ft",
+      "Risk Category III",
+      "Exposure C",
+      "Enclosed building",
+      "Topographic factor $K_{zt} = 1.0$"
+    ],
+    "required": "Calculate the design wind pressure for C&C on the wall panel at height $z = 35$ ft.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Velocity Pressure Coefficient $K_z$",
+        "content": "From ASCE 7-16 Table 26.10-1, for Exposure C at height $z = 35$ ft:\n\n$$K_z = 1.01$$ (interpolated between 0.98 at 30 ft and 1.03 at 40 ft)"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Velocity Pressure $q_h$",
+        "content": "Using ASCE 7-16 Equation 26.10-1:\n\n$$q_h = 0.00256 \\times K_z \\times K_{zt} \\times K_d \\times K_e \\times V^2$$\n\nWhere $K_d = 0.85$ (C&C, Table 26.6-1), $K_e = 1.0$\n\n$$q_h = 0.00256 \\times 1.01 \\times 1.0 \\times 0.85 \\times 1.0 \\times (170)^2$$\n\n$$q_h = 0.00256 \\times 1.01 \\times 0.85 \\times 28,900 = 63.36 \\text{ psf}$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine External Pressure Coefficients $GC_p$",
+        "content": "From ASCE 7-16 Figure 30.3-1, for walls of enclosed buildings.\n\nFor effective wind area = 50 sq ft:\n\n**Zone 4 (wall interior):**\n- $GC_p(positive) = 0.91$\n- $GC_p(negative) = -1.05$\n\n**Zone 5 (wall edges/corners):**\n- $GC_p(positive) = 0.91$\n- $GC_p(negative) = -1.33$"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Design Wind Pressure",
+        "content": "Using ASCE 7-16 Equation 30.3-1:\n\n$$p = q_h \\times (GC_p - GC_{pi})$$\n\nFor enclosed building, $GC_{pi} = \\pm 0.18$\n\n**For Zone 4 interior wall:**\n\n$$p(positive \\ external + negative \\ internal) = 63.36 \\times (0.91 - (-0.18))$$\n\n$$= 63.36 \\times 1.09 = 69.1 \\text{ psf}$$\n\n$$p(negative \\ external + positive \\ internal) = 63.36 \\times (-1.05 - 0.18)$$\n\n$$= 63.36 \\times (-1.23) = -77.9 \\text{ psf}$$"
+      }
+    ],
+    "final_answer": "The design wind pressures for C&C on the wall panel are $+69.1$ psf (positive/inward) and $-77.9$ psf (negative/outward). The controlling pressure for design is $77.9$ psf outward suction.",
+    "units": "psf",
+    "answer_value": 77.9
+  },
+  {
+    "id": "loads-seismic-001",
+    "title": "Seismic Base Shear for Reinforced Concrete Building",
+    "code": "ASCE 7-16",
+    "codeSection": "Chapter 12",
+    "difficulty": "Difficult",
+    "category": "analysis-loads",
+    "subcategory": "Seismic loads",
+    "problem": "A 5-story reinforced concrete special moment frame building is being designed in Los Angeles, California. The building has a total weight of 25,000 kips and a fundamental period of 0.85 seconds. The site is classified as Site Class D with mapped spectral accelerations $S_s = 1.85g$ and $S_1 = 0.65g$. Determine the seismic base shear using the equivalent lateral force procedure.",
+    "given": [
+      "Building type: Reinforced concrete special moment frame",
+      "Number of stories: 5",
+      "Total building weight $W = 25,000$ kips",
+      "Fundamental period $T = 0.85$ seconds",
+      "Site Class: D",
+      "Mapped spectral accelerations: $S_s = 1.85g$, $S_1 = 0.65g$",
+      "Risk Category II",
+      "Seismic Design Category D"
+    ],
+    "required": "Calculate the seismic base shear $V$ using the equivalent lateral force procedure.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Site Coefficients $F_a$ and $F_v$",
+        "content": "From ASCE 7-16 Tables 11.4-1 and 11.4-2:\n\nFor Site Class D with $S_s = 1.85g$:\n$$F_a = 1.0$$\n\nFor Site Class D with $S_1 = 0.65g$:\n$$F_v = 1.5$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Adjusted Spectral Accelerations",
+        "content": "Using ASCE 7-16 Equations 11.4-1 and 11.4-2:\n\n$$S_{MS} = F_a \\times S_s = 1.0 \\times 1.85 = 1.85g$$\n\n$$S_{M1} = F_v \\times S_1 = 1.5 \\times 0.65 = 0.975g$$\n\nThen, $S_{DS}$ and $S_{D1}$:\n\n$$S_{DS} = \\frac{2}{3} \\times S_{MS} = \\frac{2}{3} \\times 1.85 = 1.23g$$\n\n$$S_{D1} = \\frac{2}{3} \\times S_{M1} = \\frac{2}{3} \\times 0.975 = 0.65g$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Response Modification Factor $R$",
+        "content": "From ASCE 7-16 Table 12.2-1, for reinforced concrete special moment frame (Type C1):\n\n$$R = 8, \\quad \\Omega_0 = 3, \\quad C_d = 5.5$$"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Seismic Response Coefficient $C_s$",
+        "content": "Using ASCE 7-16 Equation 12.8-2:\n\n$$C_s = \\frac{S_{DS}}{R/I_e}$$\n\nFor Risk Category II, $I_e = 1.0$\n\n$$C_s = \\frac{1.23}{8/1.0} = 0.154$$\n\n**Check upper limit** from Equation 12.8-3:\n\n$$C_s \\leq \\frac{S_{D1}}{T \\times R/I_e} = \\frac{0.65}{0.85 \\times 8/1.0} = 0.096$$\n\n**Controlling $C_s = 0.096$** (upper limit governs)"
+      },
+      {
+        "step": 5,
+        "title": "Calculate Seismic Base Shear $V$",
+        "content": "Using ASCE 7-16 Equation 12.8-1:\n\n$$V = C_s \\times W = 0.096 \\times 25,000 \\text{ kips} = 2,400 \\text{ kips}$$"
+      }
+    ],
+    "final_answer": "The seismic base shear $V = 2,400$ kips. Note: The upper limit of $C_s$ governed because the building period $T = 0.85$ sec is less than $T_L$ (typically 8-12 seconds for most of California).",
+    "units": "kips",
+    "answer_value": 2400
+  },
+  {
+    "id": "loads-seismic-002",
+    "title": "Vertical Distribution of Seismic Forces",
+    "code": "ASCE 7-16",
+    "codeSection": "Section 12.8.3",
+    "difficulty": "Moderate",
+    "category": "analysis-loads",
+    "subcategory": "Seismic loads",
+    "problem": "A 6-story steel building has a calculated seismic base shear of 450 kips. The story weights and heights are: Floor 1 (base): 0 kips at 0 ft; Floor 2: 600 kips at 15 ft; Floor 3: 580 kips at 28 ft; Floor 4: 560 kips at 41 ft; Floor 5: 550 kips at 54 ft; Floor 6 (roof): 400 kips at 67 ft. The fundamental period $T = 0.65$ seconds. Distribute the seismic forces to each floor level.",
+    "given": [
+      "Seismic base shear $V = 450$ kips",
+      "Fundamental period $T = 0.65$ seconds",
+      "Floor 2: $w_2 = 600$ kips at $h_2 = 15$ ft",
+      "Floor 3: $w_3 = 580$ kips at $h_3 = 28$ ft",
+      "Floor 4: $w_4 = 560$ kips at $h_4 = 41$ ft",
+      "Floor 5: $w_5 = 550$ kips at $h_5 = 54$ ft",
+      "Floor 6 (roof): $w_6 = 400$ kips at $h_6 = 67$ ft",
+      "Total building weight $W = 2,690$ kips"
+    ],
+    "required": "Calculate the seismic force at each floor level using the vertical distribution procedure.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Exponent $k$",
+        "content": "From ASCE 7-16 Section 12.8.3, the exponent $k$ depends on building period:\n\n- For $T \\leq 0.5$ sec: $k = 1.0$\n- For $T \\geq 2.5$ sec: $k = 2.0$\n- For $0.5 < T < 2.5$ sec:\n\n$$k = 1.0 + 0.5(T - 0.5) = 1.0 + 0.5(0.65 - 0.5) = 1.075$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Distribution Factor $C_{vx}$",
+        "content": "$$C_{vx} = \\frac{w_x \\times h_x^k}{\\sum(w_i \\times h_i^k)}$$\n\nCalculate $w_i \\times h_i^k$ for each floor:\n\n- Floor 2: $600 \\times (15)^{1.075} = 10,470$\n- Floor 3: $580 \\times (28)^{1.075} = 19,975$\n- Floor 4: $560 \\times (41)^{1.075} = 29,165$\n- Floor 5: $550 \\times (54)^{1.075} = 38,660$\n- Floor 6: $400 \\times (67)^{1.075} = 35,616$\n\n$$\\sum(w_i \\times h_i^k) = 133,886$$"
+      },
+      {
+        "step": 3,
+        "title": "Calculate $C_{vx}$ for Each Floor",
+        "content": "$$C_{v2} = 0.078, \\quad C_{v3} = 0.149, \\quad C_{v4} = 0.218$$\n$$C_{v5} = 0.289, \\quad C_{v6} = 0.266$$\n\nCheck: $\\sum C_{vx} = 1.000$ ✓"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Seismic Force at Each Floor",
+        "content": "$$F_x = C_{vx} \\times V$$\n\n- $F_2 = 35.1$ kips\n- $F_3 = 67.1$ kips\n- $F_4 = 98.1$ kips\n- $F_5 = 130.1$ kips\n- $F_6 = 119.7$ kips\n\nCheck: $\\sum F_x = 450$ kips ✓"
+      }
+    ],
+    "final_answer": "Seismic forces at each floor level: $F_2 = 35.1$ kips, $F_3 = 67.1$ kips, $F_4 = 98.1$ kips, $F_5 = 130.1$ kips, $F_6 = 119.7$ kips. Total = 450 kips.",
+    "units": "kips",
+    "answer_value": 450
+  },
+  {
+    "id": "loads-snow-001",
+    "title": "Flat Roof Snow Load Calculation",
+    "code": "ASCE 7-16",
+    "codeSection": "Chapter 7",
+    "difficulty": "Moderate",
+    "category": "analysis-loads",
+    "subcategory": "Snow",
+    "problem": "Determine the design flat roof snow load for an office building located in Denver, Colorado. The building has a flat roof at an elevation of 5,500 feet. The roof is partially exposed, and the building is located in Terrain Category B. The building has a Risk Category II classification. The ground snow load from ASCE 7-16 Figure 7.2-1 is $p_g = 18$ psf.",
+    "given": [
+      "Location: Denver, Colorado",
+      "Ground snow load $p_g = 18$ psf",
+      "Roof slope: Flat ($\\theta = 0°$)",
+      "Roof exposure: Partially exposed",
+      "Terrain Category: B",
+      "Risk Category: II",
+      "Elevation: 5,500 ft"
+    ],
+    "required": "Calculate the design flat roof snow load $p_f$.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Exposure Factor $C_e$",
+        "content": "From ASCE 7-16 Table 7.3-1, for Terrain Category B and partially exposed roof:\n\n$$C_e = 1.0$$"
+      },
+      {
+        "step": 2,
+        "title": "Determine Thermal Factor $C_t$",
+        "content": "From ASCE 7-16 Table 7.3-2, for heated structure:\n\n$$C_t = 1.0$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Importance Factor $I_s$",
+        "content": "From ASCE 7-16 Table 1.5-2, for Risk Category II:\n\n$$I_s = 1.0$$"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Flat Roof Snow Load",
+        "content": "Using ASCE 7-16 Equation 7.3-1:\n\n$$p_f = 0.7 \\times C_e \\times C_t \\times I_s \\times p_g$$\n\n$$p_f = 0.7 \\times 1.0 \\times 1.0 \\times 1.0 \\times 18 = 12.6 \\text{ psf}$$"
+      },
+      {
+        "step": 5,
+        "title": "Check Minimum Snow Load",
+        "content": "Per ASCE 7-16 Section 7.3.4:\n\n$$p_{f,min} = I_s \\times p_g = 1.0 \\times 18 = 18 \\text{ psf}$$\n\nSince $p_f = 12.6$ psf $< p_{f,min} = 18$ psf, use $p_f = 18$ psf."
+      }
+    ],
+    "final_answer": "The design flat roof snow load is $p_f = 18$ psf (minimum snow load governs).",
+    "units": "psf",
+    "answer_value": 18
+  },
+  {
+    "id": "loads-combinations-001",
+    "title": "Load Combinations for Beam Design",
+    "code": "IBC 2018 / ASCE 7-16",
+    "codeSection": "Section 1605",
+    "difficulty": "Moderate",
+    "category": "analysis-loads",
+    "subcategory": "Load combinations",
+    "problem": "A simply supported floor beam has the following service loads: Dead load = 2.5 kip/ft, Live load = 3.0 kip/ft, Roof live load = 1.2 kip/ft, Snow load = 1.5 kip/ft. Determine the factored load for LRFD design and the allowable stress design load. The beam spans 24 feet.",
+    "given": [
+      "Span $L = 24$ ft",
+      "Dead load $D = 2.5$ kip/ft",
+      "Live load $L = 3.0$ kip/ft",
+      "Roof live load $L_r = 1.2$ kip/ft",
+      "Snow load $S = 1.5$ kip/ft"
+    ],
+    "required": "Determine the controlling factored load for LRFD and ASD.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Identify Applicable Loads",
+        "content": "Floor live load $L$ and roof live load $L_r$ are independent and should not be combined simultaneously in the same load combination according to ASCE 7-16 Section 2.3.2.\n\nFor this problem, we check combinations for:\n- Floor beam: $D + L$\n- Roof load contribution: $D + S$ or $D + L_r$"
+      },
+      {
+        "step": 2,
+        "title": "LRFD Load Combinations (ASCE 7-16 Section 2.3)",
+        "content": "**Combo 1:** $1.4D = 1.4 \\times 2.5 = 3.5$ kip/ft\n\n**Combo 2:** $1.2D + 1.6L + 0.5S$\n$= 1.2(2.5) + 1.6(3.0) + 0.5(1.5) = 3.0 + 4.8 + 0.75 = 8.55$ kip/ft\n\n**Combo 3:** $1.2D + 1.6S + 0.5L$\n$= 1.2(2.5) + 1.6(1.5) + 0.5(3.0) = 3.0 + 2.4 + 1.5 = 6.9$ kip/ft\n\n**Controlling LRFD:** $w_u = 8.55$ kip/ft"
+      },
+      {
+        "step": 3,
+        "title": "ASD Load Combinations (ASCE 7-16 Section 2.4)",
+        "content": "**Combo 1:** $D = 2.5$ kip/ft\n\n**Combo 2:** $D + L = 2.5 + 3.0 = 5.5$ kip/ft\n\n**Combo 3:** $D + 0.75L + 0.75S$\n$= 2.5 + 0.75(3.0) + 0.75(1.5) = 2.5 + 2.25 + 1.125 = 5.875$ kip/ft\n\n**Controlling ASD:** $w_a = 5.875$ kip/ft"
+      }
+    ],
+    "final_answer": "Controlling LRFD factored load: $w_u = 8.55$ kip/ft. Controlling ASD load: $w_a = 5.88$ kip/ft. The LRFD combination with floor live load governs.",
+    "units": "kip/ft",
+    "answer_value": 8.55
+  }
+]

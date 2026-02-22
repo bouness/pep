@@ -1,0 +1,231 @@
+[
+  {
+    "id": "temp-formwork-001",
+    "title": "Formwork Design for Concrete Wall",
+    "code": "ACI 347-14",
+    "codeSection": "Chapter 4",
+    "difficulty": "Difficult",
+    "category": "temporary-structures",
+    "subcategory": "Formwork",
+    "problem": "Design the spacing of studs for a 12-ft tall concrete wall form. The form sheathing is 3/4-inch plywood (bending strength $F_b = 1,930$ psi, rolling shear $F_s = 72$ psi). The concrete will be placed at a rate of 7 ft/hr with internal vibration. Use Type I cement at 70°F. Calculate the maximum stud spacing.",
+    "given": [
+      "Wall height $H = 12$ ft",
+      "Plywood sheathing: 3/4 inch thick",
+      "Bending strength $F_b = 1,930$ psi",
+      "Rolling shear $F_s = 72$ psi",
+      "Placement rate $R = 7$ ft/hr",
+      "Internal vibration used",
+      "Type I cement, temperature = 70°F"
+    ],
+    "required": "Calculate the maximum allowable stud spacing.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Lateral Pressure on Formwork",
+        "content": "Using ACI 347-14 Equation (4.1):\n\n$$p_{max} = C_w C_c \\left(150 + \\frac{9,000R}{T + 50}\\right)$$\n\nWhere $C_w = 1.0$, $C_c = 1.0$, $R = 7$ ft/hr, $T = 70°F$:\n\n$$p_{max} = 1.0 \\times 1.0 \\times \\left(150 + \\frac{9,000 \\times 7}{70 + 50}\\right) = 150 + 525 = 675 \\text{ psf}$$"
+      },
+      {
+        "step": 2,
+        "title": "Determine Plywood Section Properties",
+        "content": "For 3/4-inch plywood (B-B Class I):\n\n- Section modulus: $S = 0.455$ in³/ft\n- Rolling shear constant: $Ib/Q = 7.187$ in²/ft"
+      },
+      {
+        "step": 3,
+        "title": "Calculate Maximum Span Based on Bending",
+        "content": "For 3-span condition:\n\n$$l = \\sqrt{\\frac{F_b \\times 10S}{w}}$$\n\nWhere $w = 675/12 = 56.25$ lb/in:\n\n$$l = \\sqrt{\\frac{1,930 \\times 10 \\times 0.455}{56.25}} = \\sqrt{156.2} = 12.5 \\text{ in}$$"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Maximum Span Based on Rolling Shear",
+        "content": "$$l = \\frac{F_s \\times Ib/Q}{0.6w} = \\frac{72 \\times 7.187}{0.6 \\times 56.25} = 15.3 \\text{ in}$$"
+      },
+      {
+        "step": 5,
+        "title": "Determine Governing Spacing",
+        "content": "**Summary:**\n- Based on bending: 12.5 in\n- Based on rolling shear: 15.3 in\n\n**Bending governs.**\n\nPractical stud spacing: **12 inches on center**"
+      }
+    ],
+    "final_answer": "The maximum stud spacing is **12 inches on center**, governed by bending in the plywood sheathing.",
+    "units": "in",
+    "answer_value": 12
+  },
+  {
+    "id": "temp-scaffold-001",
+    "title": "Scaffolding Load Capacity",
+    "code": "OSHA 1926.451",
+    "codeSection": "1926.451(a)",
+    "difficulty": "Moderate",
+    "category": "temporary-structures",
+    "subcategory": "Scaffolding",
+    "problem": "A tube-and-coupler scaffold system is 6 ft wide with 4 legs rated at 4,000 lb each. The maximum anticipated load is 3 workers (250 lb each with tools), 2,000 lb of masonry materials, and a wall load of 50 psf over a 6 ft × 30 ft area. Determine if the scaffold legs are adequate.",
+    "given": [
+      "Scaffold width: 6 ft",
+      "Number of legs: 4",
+      "Leg capacity: 4,000 lb each",
+      "Workers: 3 at 250 lb each",
+      "Materials: 2,000 lb",
+      "Wall load: 50 psf over 6 ft × 30 ft"
+    ],
+    "required": "Check if scaffold leg capacity is adequate.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Total Applied Load",
+        "content": "**Worker load:** $3 \\times 250 = 750$ lb\n\n**Material load:** 2,000 lb\n\n**Wall load:** $50 \\times 6 \\times 30 = 9,000$ lb\n\n**Total load:** $W_{total} = 750 + 2,000 + 9,000 = 11,750$ lb"
+      },
+      {
+        "step": 2,
+        "title": "Distribute Load to Scaffold Legs",
+        "content": "Assuming 60% of wall load goes to front legs:\n\n**Front legs:** $(0.6 \\times 9,000)/2 + 750/2 + 2,000/2 = 3,875$ lb per leg\n\n**Rear legs:** $(0.4 \\times 9,000)/2 + 750/2 + 2,000/2 = 2,875$ lb per leg\n\n**Maximum load per leg:** 3,875 lb"
+      },
+      {
+        "step": 3,
+        "title": "Apply OSHA Requirements",
+        "content": "Per OSHA 1926.451, scaffolds must support **4 times the maximum intended load**:\n\n$$P_{required} = 4 \\times 3,875 = 15,500 \\text{ lb per leg}$$\n\n**Available capacity:** 4,000 lb per leg\n\n$$4,000 < 15,500$$ **FAILS**"
+      }
+    ],
+    "final_answer": "The scaffold legs are **NOT adequate**. Required capacity = 15,500 lb per leg, but each leg is only rated for 4,000 lb. Use higher-capacity legs or add intermediate supports.",
+    "units": "lb",
+    "answer_value": 15500
+  },
+  {
+    "id": "temp-crane-001",
+    "title": "Crane Lift Planning",
+    "code": "OSHA 1926.1417 / ASME B30.5",
+    "codeSection": "1926.1417",
+    "difficulty": "Difficult",
+    "category": "temporary-structures",
+    "subcategory": "Safety",
+    "problem": "A mobile crane with a 100-ton capacity is operating at a 30-ft radius with a 60-ft boom. The rated capacity at this configuration is 18,000 lb. The beam weighs 12,000 lb, rigging weighs 500 lb, and load block weighs 800 lb. Calculate the load percentage and determine if the lift is permissible.",
+    "given": [
+      "Crane capacity: 100-ton mobile crane",
+      "Operating radius: 30 ft",
+      "Boom length: 60 ft",
+      "Rated capacity: 18,000 lb",
+      "Beam weight: 12,000 lb",
+      "Rigging weight: 500 lb",
+      "Load block weight: 800 lb"
+    ],
+    "required": "Calculate load percentage and check if lift is permissible.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Total Lifted Load",
+        "content": "Per OSHA 1926.1417, the total load includes:\n\n$$W_{total} = W_{beam} + W_{rigging} + W_{block} = 12,000 + 500 + 800 = 13,300 \\text{ lb}$$"
+      },
+      {
+        "step": 2,
+        "title": "Compare to Rated Capacity",
+        "content": "$$W_{total} = 13,300 \\text{ lb} < 18,000 \\text{ lb}$$ ✓\n\nThe lift is within the rated capacity."
+      },
+      {
+        "step": 3,
+        "title": "Calculate Load Percentage",
+        "content": "$$\\% Load = \\frac{W_{total}}{C_{rated}} \\times 100 = \\frac{13,300}{18,000} \\times 100 = 73.9\\%$$"
+      },
+      {
+        "step": 4,
+        "title": "Check OSHA Requirements",
+        "content": "Per OSHA 1926.1417:\n\n1. Total load shall not exceed rated capacity ✓ (13,300 < 18,000 lb)\n\n2. When operating at 75% or more of capacity:\n   - Must not travel with load\n   - Tag lines required\n   - Lift director must be present\n\nSince **73.9% < 75%**, the additional heavy-lift requirements do not apply."
+      }
+    ],
+    "final_answer": "The lift is **permissible** with a load percentage of **73.9%** of rated capacity. No additional heavy-lift requirements apply since load is below 75% threshold.",
+    "units": "%",
+    "answer_value": 73.9
+  },
+  {
+    "id": "temp-flagpole-001",
+    "title": "Flagpole Foundation Depth Calculation",
+    "code": "ASCE 7-16 / IBC 2018",
+    "codeSection": "Chapter 29",
+    "difficulty": "Difficult",
+    "category": "design-components",
+    "subcategory": "Piers",
+    "problem": "Design the foundation depth for a 50-ft tall aluminum flagpole with a 12-inch base diameter tapering to 6 inches at top. The flagpole weighs 1,200 lb and carries an 8 ft × 12 ft flag. Design wind speed is 110 mph (Risk Category II, Exposure C). The foundation is a 3-ft diameter concrete pier in soil with unit weight 120 pcf.",
+    "given": [
+      "Flagpole height $H = 50$ ft",
+      "Base diameter = 12 in, top diameter = 6 in",
+      "Flagpole weight $W = 1,200$ lb",
+      "Flag size: 8 ft × 12 ft",
+      "Design wind speed $V = 110$ mph",
+      "Risk Category II, Exposure C",
+      "Foundation: 3-ft diameter concrete pier",
+      "Soil unit weight $\\gamma = 120$ pcf"
+    ],
+    "required": "Calculate the required foundation embedment depth.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Wind Force on Flagpole",
+        "content": "**Velocity pressure at z = 50 ft, Exposure C:**\n\n$$q_z = 0.00256 K_z K_d V^2 = 0.00256 \\times 1.09 \\times 0.95 \\times (110)^2 = 32.1 \\text{ psf}$$\n\n**Effective projected area of pole:**\n$$A_{ep} = 0.75 \\times 50 \\times 0.85 \\times 0.7 = 22.3 \\text{ ft}^2$$\n\n**Force on pole:**\n$$F_{pole} = 32.1 \\times 22.3 = 716 \\text{ lb}$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Wind Force on Flag",
+        "content": "**Force on flag:**\n$$F_{flag} = q_z \\times A_{flag} \\times G \\times C_f = 32.1 \\times 96 \\times 1.0 \\times 1.4 = 4,314 \\text{ lb}$$"
+      },
+      {
+        "step": 3,
+        "title": "Calculate Total Overturning Moment",
+        "content": "$$M_{pole} = 716 \\times 25 = 17,900 \\text{ lb-ft}$$\n\n$$M_{flag} = 4,314 \\times 50 = 215,700 \\text{ lb-ft}$$\n\n$$M_{total} = 17,900 + 215,700 = 233,600 \\text{ lb-ft}$$"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Required Embedment Depth",
+        "content": "Using passive pressure method with factor of safety = 2.0:\n\nFor a cylindrical pier:\n$$M_R = \\frac{K_p \\gamma D^3}{6}$$\n\nFor $K_p \\approx 3.0$:\n$$\\frac{3.0 \\times 120 \\times D^3}{6} \\geq 2 \\times 233,600$$\n\n$$D^3 \\geq 7,787$$\n$$D \\geq 19.8 \\text{ ft}$$\n\nIncluding foundation weight contribution: **Use D = 18 ft**"
+      }
+    ],
+    "final_answer": "The required foundation embedment depth is **$D = 18$ ft** for a 3-ft diameter concrete pier. Total sheet pile length = 68 ft.",
+    "units": "ft",
+    "answer_value": 18
+  },
+  {
+    "id": "temp-bracing-001",
+    "title": "Temporary Bracing of Steel Column",
+    "code": "AISC 303-16 / OSHA 1926.756",
+    "codeSection": "Section 7.10",
+    "difficulty": "Moderate",
+    "category": "temporary-structures",
+    "subcategory": "Bracing",
+    "problem": "A W12×65 steel column (A992 steel) is being erected and requires temporary bracing. The column is 24 ft tall. Design wind pressure is 25 psf. Determine the required capacity of a diagonal brace attached at the top and anchored 15 ft high on an adjacent structure. Use factor of safety = 1.5.",
+    "given": [
+      "Column: W12×65, A992 steel",
+      "Column height: 24 ft",
+      "Column weight: 65 lb/ft",
+      "Wind pressure: 25 psf on column face",
+      "Brace attached at top (24 ft) to anchor at 15 ft height",
+      "Factor of safety: 1.5"
+    ],
+    "required": "Calculate the required brace capacity with safety factor.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Wind Force on Column",
+        "content": "The W12×65 has a flange width of approximately 12 inches = 1 ft.\n\n$$F_{wind} = 25 \\text{ psf} \\times 1 \\text{ ft} \\times 24 \\text{ ft} = 600 \\text{ lb}$$\n\n**Force acts at mid-height:** $y = 12$ ft above base"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Overturning Moment",
+        "content": "$$M_w = F_{wind} \\times \\frac{H}{2} = 600 \\times 12 = 7,200 \\text{ lb-ft}$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Brace Geometry",
+        "content": "**Geometry:**\n- Brace attachment at column: 24 ft height\n- Brace anchor: 15 ft height on adjacent structure\n- Assume horizontal distance: 10 ft\n\n**Brace angle:**\n$$\\theta = \\arctan\\left(\\frac{24-15}{10}\\right) = 42°$$"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Required Horizontal Brace Force",
+        "content": "Taking moments about the column base:\n\n$$F_h = \\frac{M_w}{24} = \\frac{7,200}{24} = 300 \\text{ lb}$$"
+      },
+      {
+        "step": 5,
+        "title": "Calculate Brace Tension with Safety Factor",
+        "content": "**Brace tension:**\n$$T = \\frac{F_h}{\\cos\\theta} = \\frac{300}{\\cos(42°)} = 404 \\text{ lb}$$\n\n**With factor of safety:**\n$$T_{design} = T \\times FS = 404 \\times 1.5 = 606 \\text{ lb}$$\n\n**Use minimum 1,000 lb capacity brace**"
+      }
+    ],
+    "final_answer": "The required brace capacity is **606 lb** (with FS = 1.5). In practice, use a brace rated for at least **1,000 lb** capacity.",
+    "units": "lb",
+    "answer_value": 606
+  }
+]

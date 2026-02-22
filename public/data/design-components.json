@@ -1,0 +1,189 @@
+[
+  {
+    "id": "components-retaining-001",
+    "title": "Cantilever Retaining Wall Design",
+    "code": "AASHTO LRFD 8th Edition",
+    "codeSection": "Article 11.6",
+    "difficulty": "Very Difficult",
+    "category": "design-components",
+    "subcategory": "Retaining walls",
+    "problem": "A 20-ft tall cantilever retaining wall retains granular backfill with $\\gamma = 125$ pcf and $\\phi = 32°$. The wall has a 2-ft thick base slab, 12-ft wide heel, and 3-ft toe. A surcharge of 200 psf is applied at the top. Calculate the active earth pressure resultant and factor of safety against overturning.",
+    "given": [
+      "Wall height $H = 20$ ft",
+      "Backfill: $\\gamma = 125$ pcf, $\\phi = 32°$",
+      "Base slab thickness = 2 ft",
+      "Heel width = 12 ft",
+      "Toe width = 3 ft",
+      "Surcharge $q = 200$ psf"
+    ],
+    "required": "Calculate active earth pressure and factor of safety against overturning.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Active Earth Pressure Coefficient",
+        "content": "Using Rankine method:\n\n$$K_a = \\tan^2(45° - \\phi/2) = \\tan^2(29°) = 0.307$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Active Earth Pressure from Soil",
+        "content": "$$p_a = K_a \\gamma H = 0.307 \\times 125 \\times 20 = 767.5 \\text{ psf}$$\n\n$$P_a = \\frac{1}{2} p_a H = \\frac{1}{2} \\times 767.5 \\times 20 = 7,675 \\text{ lb/ft}$$\n\nActs at $H/3 = 6.67$ ft from base"
+      },
+      {
+        "step": 3,
+        "title": "Calculate Surcharge Pressure",
+        "content": "$$p_q = K_a q = 0.307 \\times 200 = 61.4 \\text{ psf}$$\n\n$$P_q = p_q H = 61.4 \\times 20 = 1,228 \\text{ lb/ft}$$\n\nActs at $H/2 = 10$ ft from base"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Resisting Moment",
+        "content": "**Wall stem:** $M = 21,600$ lb-ft/ft\n**Base slab:** $M = 33,750$ lb-ft/ft\n**Soil on heel:** $M = 243,000$ lb-ft/ft\n\n$$M_R = 298,350 \\text{ lb-ft/ft}$$"
+      },
+      {
+        "step": 5,
+        "title": "Calculate Overturning Moment and FS",
+        "content": "$$M_o = P_a \\times H/3 + P_q \\times H/2 = 7,675 \\times 6.67 + 1,228 \\times 10 = 63,472 \\text{ lb-ft/ft}$$\n\n$$FS = \\frac{M_R}{M_o} = \\frac{298,350}{63,472} = 4.70$$"
+      }
+    ],
+    "final_answer": "Total active earth pressure = 8,903 lb/ft. Factor of safety against overturning = **4.7**, which exceeds the minimum requirement of 2.0.",
+    "units": "FS = 4.7",
+    "answer_value": 4.7
+  },
+  {
+    "id": "components-slab-001",
+    "title": "One-Way Slab Design",
+    "code": "ACI 318-19",
+    "codeSection": "Chapter 7 & 8",
+    "difficulty": "Moderate",
+    "category": "design-components",
+    "subcategory": "Slabs",
+    "problem": "Design a one-way slab spanning 10 feet between supports. The slab supports a superimposed dead load of 25 psf and live load of 100 psf. Use $f'_c = 4,000$ psi and Grade 60 reinforcement.",
+    "given": [
+      "Span $L = 10$ ft",
+      "Superimposed dead load = 25 psf",
+      "Live load = 100 psf",
+      "$f'_c = 4,000$ psi",
+      "Grade 60 reinforcement"
+    ],
+    "required": "Determine slab thickness and required reinforcement.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Minimum Slab Thickness",
+        "content": "Per ACI 318-19 Table 7.3.1.1:\n\nFor one-end continuous: $h_{min} = L/24 = 10 \\times 12/24 = 5.0$ in\n\nUse **h = 5 inches**"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Loads",
+        "content": "Slab self-weight = $5/12 \\times 150 = 62.5$ psf\n\nTotal dead load = $62.5 + 25 = 87.5$ psf\n\n$$w_u = 1.2(87.5) + 1.6(100) = 265 \\text{ psf}$$"
+      },
+      {
+        "step": 3,
+        "title": "Calculate Moments",
+        "content": "At interior support: $M_u = w_u L^2/11 = 2.41$ kip-ft/ft\nAt midspan: $M_u = w_u L^2/16 = 1.66$ kip-ft/ft"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Required Reinforcement",
+        "content": "With $d = h - 0.75 - 0.25 = 4.0$ in:\n\n$$A_s = \\frac{M_u}{\\phi f_y (d - a/2)} = 0.138 \\text{ in}^2/\\text{ft}$$\n\n**Minimum reinforcement:**\n$$A_{s,min} = 0.0018 \\times 5 \\times 12 = 0.108 \\text{ in}^2/\\text{ft}$$\n\nSince $A_{s,required} > A_{s,min}$: Use $A_s = 0.16$ in²/ft"
+      },
+      {
+        "step": 5,
+        "title": "Select Reinforcement",
+        "content": "Use **#4 bars at 15 in** c/c:\n\n$$A_s = 0.20 \\times 12/15 = 0.16 \\text{ in}^2/\\text{ft}$$ ✓"
+      }
+    ],
+    "final_answer": "Use a **5-inch thick slab** with **#4 bars at 15 inches** on center. Temperature reinforcement: #3 at 12 in c/c.",
+    "units": "h = 5 in",
+    "answer_value": 5
+  },
+  {
+    "id": "components-connection-001",
+    "title": "Simple Shear Connection - Block Shear",
+    "code": "AISC 360-16",
+    "codeSection": "Chapter J",
+    "difficulty": "Difficult",
+    "category": "design-components",
+    "subcategory": "Bolted connections",
+    "problem": "A single-plate connection uses (5) 3/4-inch A325-N bolts to connect a W18×35 beam to a W12×65 column. The beam end reaction is $R_u = 48$ kips. The beam has a 1.5-inch deep cope. Check block shear rupture capacity.",
+    "given": [
+      "Beam: W18×35, A992 steel",
+      "Connection: (5) 3/4\" A325-N bolts",
+      "Factored reaction $R_u = 48$ kips",
+      "Cope depth = 1.5 in",
+      "Standard holes"
+    ],
+    "required": "Check block shear rupture capacity.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Block Shear Geometry",
+        "content": "For 5 bolts in a vertical line with 3-inch pitch and 2.5-inch edge distance:\n\n$$A_{nt} = (2.5 - 0.5 \\times 0.875) \\times 0.300 = 0.62 \\text{ in}^2$$\n\n$$A_{gv} = 14.5 \\times 0.300 = 4.35 \\text{ in}^2$$\n\n$$A_{nv} = (14.5 - 4.5 \\times 0.875) \\times 0.300 = 3.17 \\text{ in}^2$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Block Shear Strength",
+        "content": "Per AISC J4.3:\n\n$$R_n = 0.6 F_u A_{nv} + U_{bs} F_u A_{nt}$$\n$$= 0.6(65)(3.17) + 1.0(65)(0.62) = 163.9 \\text{ kips}$$\n\nAlso check:\n$$R_n = 0.6 F_y A_{gv} + U_{bs} F_u A_{nt}$$\n$$= 0.6(50)(4.35) + 1.0(65)(0.62) = 170.8 \\text{ kips}$$\n\nGoverning $R_n = 163.9$ kips"
+      },
+      {
+        "step": 3,
+        "title": "Calculate Design Strength",
+        "content": "$$\\phi R_n = 0.75 \\times 163.9 = 122.9 \\text{ kips}$$"
+      },
+      {
+        "step": 4,
+        "title": "Compare to Required Strength",
+        "content": "$$\\phi R_n = 122.9 \\text{ kips} > R_u = 48 \\text{ kips}$$ ✓\n\nRatio = 122.9/48 = 2.56"
+      }
+    ],
+    "final_answer": "Block shear capacity $\\phi R_n = 123$ kips $> R_u = 48$ kips. The connection is **adequate** for block shear rupture.",
+    "units": "kips",
+    "answer_value": 123
+  },
+  {
+    "id": "components-bridge-001",
+    "title": "HL-93 Live Load Moment",
+    "code": "AASHTO LRFD 8th Edition",
+    "codeSection": "Article 3.6.1",
+    "difficulty": "Difficult",
+    "category": "design-components",
+    "subcategory": "Beams",
+    "problem": "Calculate the unfactored HL-93 live load moment for an interior girder of a simple span bridge. The span length is 85 ft, and girder spacing is 8.5 ft. The deck is 8 inches thick.",
+    "given": [
+      "Span length $L = 85$ ft",
+      "Girder spacing $S = 8.5$ ft",
+      "Deck thickness = 8 in",
+      "HL-93 loading"
+    ],
+    "required": "Calculate unfactored HL-93 live load moment at midspan.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Design Truck Moment",
+        "content": "For HL-93 design truck on 85 ft span:\n\n$$M_{truck} = 1,350 \\text{ kip-ft}$$ (single lane, from analysis)"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Design Lane Load Moment",
+        "content": "Design lane load = 0.64 klf:\n\n$$M_{lane} = \\frac{wL^2}{8} = \\frac{0.64 \\times (85)^2}{8} = 578 \\text{ kip-ft}$$"
+      },
+      {
+        "step": 3,
+        "title": "Calculate Design Tandem Moment",
+        "content": "Design tandem = Two 25-kip axles at 4 ft spacing:\n\n$$M_{tandem} = 1,065 \\text{ kip-ft}$$"
+      },
+      {
+        "step": 4,
+        "title": "Combine HL-93 Load Effects",
+        "content": "HL-93 is the larger of:\n\n**Case 1:** Truck + Lane = 1,350 + 578 = 1,928 kip-ft\n**Case 2:** Tandem + Lane = 1,065 + 578 = 1,643 kip-ft\n\n**Controlling:** Case 1 with Design Truck"
+      },
+      {
+        "step": 5,
+        "title": "Apply Distribution Factor",
+        "content": "From AASHTO Table 4.6.2.2.2b-1:\n$$g \\approx 0.55$$ (for two or more lanes)\n\n$$M_{LL} = g \\times (M_{truck} \\times 1.33 + M_{lane})$$\n$$M_{LL} = 0.55 \\times (1,350 \\times 1.33 + 578) = 1,306 \\text{ kip-ft}$$"
+      }
+    ],
+    "final_answer": "The unfactored HL-93 live load moment is **1,306 kip-ft** (includes 33% impact). For Strength I, apply $\\gamma_{LL} = 1.75$.",
+    "units": "kip-ft",
+    "answer_value": 1306
+  }
+]

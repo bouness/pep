@@ -1,0 +1,199 @@
+[
+  {
+    "id": "forces-flexure-001",
+    "title": "Compact W-Section Beam Flexural Design (LRFD)",
+    "code": "AISC 360-16",
+    "codeSection": "Chapter F, Section F2",
+    "difficulty": "Moderate",
+    "category": "design-components",
+    "subcategory": "Beams",
+    "problem": "Select the lightest W-shape beam to span 28 feet and support a uniform service dead load of 0.85 kip/ft and a uniform service live load of 1.50 kip/ft. The beam has continuous lateral support and is A992 Grade 50 steel. Use LRFD design method.",
+    "given": [
+      "Span $L = 28$ ft",
+      "Service dead load $w_D = 0.85$ kip/ft",
+      "Service live load $w_L = 1.50$ kip/ft",
+      "Continuous lateral support ($L_b = 0$)",
+      "Steel: A992 Grade 50 ($F_y = 50$ ksi, $F_u = 65$ ksi)",
+      "Compact section assumed",
+      "LRFD design method"
+    ],
+    "required": "Select the lightest W-shape beam for flexural strength.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Factored Loads",
+        "content": "Using LRFD load combination:\n\n$$w_u = 1.2D + 1.6L = 1.2(0.85) + 1.6(1.50) = 1.02 + 2.40 = 3.42 \\text{ kip/ft}$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Factored Moment",
+        "content": "Maximum moment for simply supported beam:\n\n$$M_u = \\frac{w_u L^2}{8} = \\frac{3.42 \\times (28)^2}{8} = 335.2 \\text{ kip-ft}$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Required Plastic Section Modulus",
+        "content": "For compact section with continuous lateral support:\n\n$$Z_x \\geq \\frac{M_u}{\\phi_b \\times F_y} = \\frac{335.2 \\times 12}{0.90 \\times 50} = 89.4 \\text{ in}^3$$"
+      },
+      {
+        "step": 4,
+        "title": "Select Lightest W-Section",
+        "content": "From AISC Manual Table 3-2:\n\n- W21×44: $Z_x = 95.4$ in³, weight = 44 lb/ft\n- W18×46: $Z_x = 90.7$ in³, weight = 46 lb/ft\n\n**W21×44 is the lightest section meeting the requirement.**"
+      },
+      {
+        "step": 5,
+        "title": "Calculate Design Strength",
+        "content": "$$\\phi_b M_n = 0.90 \\times 50 \\times \\frac{95.4}{12} = 357.8 \\text{ kip-ft} > M_u = 335.2 \\text{ kip-ft}$$ ✓"
+      }
+    ],
+    "final_answer": "Select **W21×44** (weight = 44 lb/ft) with $\\phi_b M_n = 358$ kip-ft $> M_u = 335.2$ kip-ft. The beam has continuous lateral support and is compact.",
+    "units": "W21×44",
+    "answer_value": 358
+  },
+  {
+    "id": "forces-column-001",
+    "title": "Beam-Column Interaction Check (LRFD)",
+    "code": "AISC 360-16",
+    "codeSection": "Chapter H",
+    "difficulty": "Very Difficult",
+    "category": "design-components",
+    "subcategory": "Columns",
+    "problem": "A W10×49 column is subjected to factored LRFD loads: $P_u = 280$ kips (axial compression) and $M_{ux} = 85$ kip-ft (strong axis bending). The column has effective lengths $K_x L_x = 14$ ft and $K_y L_y = 12$ ft. The column is part of a braced frame and has A992 Grade 50 steel. Check if the section is adequate.",
+    "given": [
+      "Section: W10×49, A992 Grade 50 ($F_y = 50$ ksi)",
+      "Factored axial load $P_u = 280$ kips",
+      "Factored moment $M_{ux} = 85$ kip-ft",
+      "Effective length $K_x L_x = 14$ ft (x-axis)",
+      "Effective length $K_y L_y = 12$ ft (y-axis)",
+      "Braced frame",
+      "LRFD design method"
+    ],
+    "required": "Check the adequacy of W10×49 using AISC interaction equations.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Section Properties",
+        "content": "From AISC Manual Table 1-1 for W10×49:\n\n- $A = 14.4$ in²\n- $r_x = 4.35$ in, $r_y = 2.54$ in\n- $Z_x = 60.4$ in³\n\nFrom Table 4-1: $\\phi_c P_n = 423$ kips for $K_y L_y = 12$ ft"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Slenderness Ratios",
+        "content": "$$\\lambda_x = \\frac{K_x L_x}{r_x} = \\frac{14 \\times 12}{4.35} = 38.6$$\n\n$$\\lambda_y = \\frac{K_y L_y}{r_y} = \\frac{12 \\times 12}{2.54} = 56.7$$\n\n$\\lambda_y > \\lambda_x$, so **y-axis governs** for buckling."
+      },
+      {
+        "step": 3,
+        "title": "Calculate Axial Load Ratio",
+        "content": "$$P_r = \\frac{P_u}{\\phi_c P_n} = \\frac{280}{423} = 0.662$$\n\nSince $P_r > 0.2$, use **Equation H1-1a**:\n$$P_r + \\frac{8}{9}(M_{rx}) \\leq 1.0$$"
+      },
+      {
+        "step": 4,
+        "title": "Determine Flexural Capacity",
+        "content": "From AISC Manual Table 3-10 for W10×49 with $L_b = 14$ ft:\n\n$\\phi_b M_n \\approx 195$ kip-ft (inelastic LTB governs)\n\n$$M_{rx} = \\frac{M_{ux}}{\\phi_b M_n} = \\frac{85}{195} = 0.436$$"
+      },
+      {
+        "step": 5,
+        "title": "Apply Interaction Equation",
+        "content": "$$P_r + \\frac{8}{9}M_{rx} = 0.662 + \\frac{8}{9}(0.436) = 0.662 + 0.388 = 1.05 > 1.0$$ ✗\n\n**Section is NOT adequate.**"
+      }
+    ],
+    "final_answer": "The W10×49 is **NOT adequate**. The interaction ratio is $1.05 > 1.0$. A larger section such as W10×54 or W10×60 should be selected.",
+    "units": "Interaction ratio: 1.05",
+    "answer_value": 1.05
+  },
+  {
+    "id": "forces-shear-001",
+    "title": "Concrete Beam Shear Design",
+    "code": "ACI 318-19",
+    "codeSection": "Chapter 22",
+    "difficulty": "Difficult",
+    "category": "design-components",
+    "subcategory": "Beams",
+    "problem": "A 20-inch wide by 28-inch deep reinforced concrete beam spans 18 feet and supports a factored uniform load $w_u = 8.5$ kips/ft. Use $f'_c = 4,000$ psi and Grade 60 stirrups. Determine the required stirrup spacing at the critical section located at distance d from the support.",
+    "given": [
+      "Beam dimensions: $b = 20$ in, $h = 28$ in",
+      "Effective depth $d = 25.5$ in",
+      "Span $L = 18$ ft",
+      "Factored uniform load $w_u = 8.5$ kips/ft",
+      "Concrete strength $f'_c = 4,000$ psi",
+      "Stirrup steel $f_y = 60,000$ psi (Grade 60)",
+      "#4 stirrups ($A_v = 0.40$ in² for double leg)"
+    ],
+    "required": "Determine the required stirrup spacing at the critical section.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Shear at Critical Section",
+        "content": "Support reaction: $V_u(support) = \\frac{w_u L}{2} = \\frac{8.5 \\times 18}{2} = 76.5$ kips\n\nCritical section at distance d from support:\n$$V_u = 76.5 - 8.5 \\times \\frac{25.5}{12} = 76.5 - 18.1 = 58.4 \\text{ kips}$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Concrete Shear Capacity",
+        "content": "Per ACI 318-19 Section 22.5.5.1:\n\n$$V_c = 2\\sqrt{f'_c} \\times b \\times d = 2\\sqrt{4000} \\times 20 \\times 25.5 / 1000 = 64.5 \\text{ kips}$$"
+      },
+      {
+        "step": 3,
+        "title": "Check If Stirrups Are Required",
+        "content": "$$\\phi V_c = 0.75 \\times 64.5 = 48.4 \\text{ kips}$$\n\nSince $V_u = 58.4$ kips $> \\phi V_c = 48.4$ kips, stirrups are required."
+      },
+      {
+        "step": 4,
+        "title": "Calculate Required Steel Shear Capacity",
+        "content": "$$V_s \\geq \\frac{V_u}{\\phi} - V_c = \\frac{58.4}{0.75} - 64.5 = 77.9 - 64.5 = 13.4 \\text{ kips}$$"
+      },
+      {
+        "step": 5,
+        "title": "Calculate Required Stirrup Spacing",
+        "content": "Per ACI 318-19 Section 22.5.10.5.3:\n\n$$s = \\frac{A_v f_y d}{V_s} = \\frac{0.40 \\times 60,000 \\times 25.5}{13,400} = 45.7 \\text{ in}$$\n\nMaximum spacing: $s_{max} = \\min(d/2, 24 \\text{ in}) = 12.75$ in\n\n**Use s = 12 in**"
+      }
+    ],
+    "final_answer": "Use **#4 stirrups at 12 inches on center** near the supports. This provides $\\phi(V_c + V_s) = 86.6$ kips $> V_u = 58.4$ kips.",
+    "units": "s = 12 in",
+    "answer_value": 12
+  },
+  {
+    "id": "forces-buckling-001",
+    "title": "Column Buckling Analysis",
+    "code": "AISC 360-16",
+    "codeSection": "Chapter E",
+    "difficulty": "Difficult",
+    "category": "analysis-forces",
+    "subcategory": "Buckling",
+    "problem": "A W12×65 column (A992 steel) has an effective length $KL = 18$ ft about both axes. Determine the available compressive strength and check if the column can support a service dead load of 200 kips and service live load of 300 kips.",
+    "given": [
+      "Section: W12×65, A992 steel ($F_y = 50$ ksi)",
+      "Effective length $KL = 18$ ft (both axes)",
+      "Service dead load $P_D = 200$ kips",
+      "Service live load $P_L = 300$ kips"
+    ],
+    "required": "Determine available compressive strength and check adequacy.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Section Properties",
+        "content": "From AISC Manual Table 1-1 for W12×65:\n\n- $A = 19.1$ in²\n- $r_y = 3.02$ in (governs)"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Slenderness Ratio",
+        "content": "$$\\lambda = \\frac{KL}{r_y} = \\frac{18 \\times 12}{3.02} = 71.5$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Critical Stress",
+        "content": "From AISC Manual Table 4-1 for W12×65 with $KL = 18$ ft:\n\n$$\\phi_c P_n = 559 \\text{ kips}$$ (LRFD)\n\n$$P_n/\\Omega_c = 372 \\text{ kips}$$ (ASD)"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Required Strength",
+        "content": "**LRFD:**\n$$P_u = 1.2D + 1.6L = 1.2(200) + 1.6(300) = 240 + 480 = 720 \\text{ kips}$$\n\n**ASD:**\n$$P_a = D + L = 200 + 300 = 500 \\text{ kips}$$"
+      },
+      {
+        "step": 5,
+        "title": "Check Adequacy",
+        "content": "**LRFD:** $\\phi_c P_n = 559$ kips $< P_u = 720$ kips ✗ **FAILS**\n\n**ASD:** $P_n/\\Omega_c = 372$ kips $< P_a = 500$ kips ✗ **FAILS**\n\nThe column is **NOT adequate** for the applied loads."
+      }
+    ],
+    "final_answer": "The W12×65 column is **NOT adequate**. LRFD capacity = 559 kips $<$ required 720 kips. A larger section or shorter unbraced length is needed.",
+    "units": "kips",
+    "answer_value": 559
+  }
+]

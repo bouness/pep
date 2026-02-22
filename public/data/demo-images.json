@@ -1,0 +1,107 @@
+[
+  {
+    "id": "demo-image-001",
+    "title": "Beam Reinforcement Layout with Image",
+    "code": "ACI 318-19",
+    "codeSection": "Chapter 9",
+    "difficulty": "Moderate",
+    "category": "design-components",
+    "subcategory": "Beams",
+    "problem": "A rectangular reinforced concrete beam has dimensions 12 in × 24 in (b × h). The beam requires tension reinforcement of $A_s = 2.4$ in². Determine the number of #8 bars required and check the bar spacing. The clear cover is 1.5 in and stirrup diameter is 3/8 in.",
+    "problemImage": {
+      "src": "/img/0001a.png",
+      "alt": "Beam cross-section showing reinforcement layout",
+      "caption": "Figure 1: Typical beam cross-section with reinforcement",
+      "width": 600,
+      "height": 300
+    },
+    "given": [
+      "Subscript test: $A_1+A_2=c_{AB}$",
+      "Beam dimensions: $b = 12$ in, $h = 24$ in",
+      "Required steel area $A_s = 2.4$ in²",
+      "Clear cover = 1.5 in",
+      "Stirrup diameter = 3/8 in",
+      "#8 bar diameter = 1.0 in, $A_b = 0.79$ in²"
+    ],
+    "required": "Determine the number of #8 bars and check minimum spacing requirements.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Number of Bars Required",
+        "content": "Number of bars required:\n\n$$n = \\frac{A_s}{A_b} = \\frac{2.4}{0.79} = 3.04$$\n\nUse **4-#8 bars** ($A_s = 4 \\times 0.79 = 3.16$ in²)"
+      },
+      {
+        "step": 2,
+        "title": "Check Bar Spacing",
+        "content": "Available width for bars:\n\n$$b_{available} = b - 2(cover) - 2(d_{stirrup}) = 12 - 2(1.5) - 2(0.375) = 8.25 \\text{ in}$$\n\nSpacing between bars (for 4 bars in one layer):\n\n$$s = \\frac{b_{available} - n \\times d_b}{n - 1} = \\frac{8.25 - 4 \\times 1.0}{3} = 1.42 \\text{ in}$$",
+        "image": {
+          "src": "/img/0001b.png",
+          "alt": "Bar spacing calculation diagram",
+          "caption": "Figure 2: Bar spacing layout in beam width"
+        }
+      },
+      {
+        "step": 3,
+        "title": "Check Minimum Spacing Requirements",
+        "content": "Per ACI 318-19 Section 25.2.1, minimum spacing:\n\n$$s_{min} = \\max(d_b, 1 \\text{ in}, 1.33 \\times d_{agg})$$\n\nFor typical $d_{agg} = 3/4$ in:\n$$s_{min} = \\max(1.0, 1.0, 1.0) = 1.0 \\text{ in}$$\n\nActual spacing $s = 1.42$ in $> 1.0$ in ✓"
+      }
+    ],
+    "final_answer": "Use **4-#8 bars** in a single layer. The spacing of 1.42 in exceeds the minimum requirement of 1.0 in. The provided $A_s = 3.16$ in² exceeds the required $A_s = 2.4$ in².",
+    "finalImage": {
+      "src": "https://via.placeholder.com/600x250/dcfce7/166534?text=Final+Reinforcement+Layout",
+      "alt": "Final beam reinforcement layout",
+      "caption": "Figure 3: Final beam cross-section with 4-#8 bars"
+    },
+    "units": "4-#8 bars",
+    "answer_value": 4
+  },
+  {
+    "id": "demo-math-image-002",
+    "title": "Circular Column Design with Math Expressions",
+    "code": "ACI 318-19",
+    "codeSection": "Chapter 22",
+    "difficulty": "Difficult",
+    "category": "design-components",
+    "subcategory": "Columns",
+    "problem": "A circular concrete column has a diameter of 24 inches and is reinforced with 8-#10 bars. The concrete strength is $f'_c = 5,000$ psi and steel yield strength is $f_y = 60,000$ psi. Calculate the nominal axial compressive strength. The column area is {PI*12^2} sq in and steel area is {8*1.27} sq in.",
+    "problemImage": {
+      "src": "https://via.placeholder.com/400x400/f3e8ff/6b21a8?text=Circular+Column+Section",
+      "alt": "Circular column cross-section",
+      "caption": "Figure 1: 24\" diameter circular column with spiral reinforcement"
+    },
+    "given": [
+      "Column diameter $D = 24$ in → radius $r = 12$ in",
+      "Gross area $A_g = \\pi r^2 = {PI*12^2} = {PI*144}$ in²",
+      "Reinforcement: 8-#10 bars ($A_b = 1.27$ in² each)",
+      "Steel area $A_{st} = {8*1.27}$ in²",
+      "Concrete strength $f'_c = 5,000$ psi",
+      "Steel yield strength $f_y = 60,000$ psi"
+    ],
+    "required": "Calculate the nominal axial compressive strength $P_n$.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Gross and Steel Areas",
+        "content": "Gross area:\n$$A_g = \\pi \\times (12)^2 = {PI*144} \\text{ in}^2$$\n\nSteel area:\n$$A_{st} = 8 \\times 1.27 = {8*1.27} \\text{ in}^2$$\n\nReinforcement ratio:\n$$\\rho_g = \\frac{A_{st}}{A_g} = \\frac{{8*1.27}}{{PI*144}} = {8*1.27/(PI*144):.4f}$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Nominal Strength",
+        "content": "Per ACI 318-19 Equation 22.4.2.2:\n\n$$P_n = 0.85 f'_c (A_g - A_{st}) + f_y A_{st}$$\n\n$$P_n = 0.85 \\times 5,000 \\times ({PI*144} - {8*1.27}) + 60,000 \\times {8*1.27}$$\n\n$$P_n = 0.85 \\times 5,000 \\times {PI*144 - 8*1.27:.2f} + {60*8*1.27}$$\n\n$$P_n = {0.85*5000*(PI*144-8*1.27):,.0f} + {60*8*1.27*1000:,.0f} = {0.85*5000*(PI*144-8*1.27) + 60*8*1.27*1000:,.0f} \\text{ lb}$$"
+      },
+      {
+        "step": 3,
+        "title": "Calculate Design Strength",
+        "content": "For tied column, $\\phi = 0.65$ (compression controlled):\n\n$$\\phi P_n = 0.65 \\times {0.85*5000*(PI*144-8*1.27) + 60*8*1.27*1000:,.0f}$$\n\n$$\\phi P_n = {0.65*(0.85*5000*(PI*144-8*1.27) + 60*8*1.27*1000):,.0f} \\text{ lb} = {0.65*(0.85*5000*(PI*144-8*1.27) + 60*8*1.27*1000)/1000:,.1f} \\text{ kips}$$",
+        "image": {
+          "src": "https://via.placeholder.com/600x200/fef3c7/92400e?text=Column+Interaction+Diagram",
+          "alt": "Column interaction diagram showing design point",
+          "caption": "Figure 2: Column interaction diagram (pure compression region)"
+        }
+      }
+    ],
+    "final_answer": "The nominal axial compressive strength is $P_n = {(0.85*5000*(PI*144-8*1.27) + 60*8*1.27*1000)/1000:,.1f}$ kips. The design strength is $\\phi P_n = {0.65*(0.85*5000*(PI*144-8*1.27) + 60*8*1.27*1000)/1000:,.1f}$ kips.",
+    "units": "kips",
+    "answer_value": 2209
+  }
+]

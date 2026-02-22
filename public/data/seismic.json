@@ -1,0 +1,248 @@
+[
+  {
+    "id": "seismic-001",
+    "title": "Seismic Base Shear for Reinforced Concrete Building",
+    "code": "ASCE 7-16",
+    "codeSection": "Chapter 12",
+    "difficulty": "Difficult",
+    "category": "Seismic Loads",
+    "problem": "A 5-story reinforced concrete special moment frame building is being designed in Los Angeles, California. The building has a total weight of 25,000 kips and a fundamental period of 0.85 seconds. The site is classified as Site Class D with mapped spectral accelerations $S_s = 1.85g$ and $S_1 = 0.65g$. Determine the seismic base shear using the equivalent lateral force procedure.",
+    "given": [
+      "Building type: Reinforced concrete special moment frame",
+      "Number of stories: 5",
+      "Total building weight $W = 25,000$ kips",
+      "Fundamental period $T = 0.85$ seconds",
+      "Site Class: D",
+      "Mapped spectral accelerations: $S_s = 1.85g$, $S_1 = 0.65g$",
+      "Risk Category II",
+      "Seismic Design Category D"
+    ],
+    "required": "Calculate the seismic base shear $V$ using the equivalent lateral force procedure.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Site Coefficients $F_a$ and $F_v$",
+        "content": "From ASCE 7-16 Tables 11.4-1 and 11.4-2:\n\nFor Site Class D with $S_s = 1.85g$:\n$$F_a = 1.0$$ (interpolated between $F_a = 1.0$ at $S_s = 1.5$ and $F_a = 1.0$ at $S_s \\geq 2.0$)\n\nFor Site Class D with $S_1 = 0.65g$:\n$$F_v = 1.5$$ (interpolated between $F_v = 1.6$ at $S_1 = 0.6$ and $F_v = 1.4$ at $S_1 = 0.7$)"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Adjusted Spectral Accelerations",
+        "content": "Using ASCE 7-16 Equations 11.4-1 and 11.4-2:\n\n$$S_{MS} = F_a \\times S_s = 1.0 \\times 1.85 = 1.85g$$\n\n$$S_{M1} = F_v \\times S_1 = 1.5 \\times 0.65 = 0.975g$$\n\nThen, $S_{DS}$ and $S_{D1}$:\n\n$$S_{DS} = \\frac{2}{3} \\times S_{MS} = \\frac{2}{3} \\times 1.85 = 1.23g$$\n\n$$S_{D1} = \\frac{2}{3} \\times S_{M1} = \\frac{2}{3} \\times 0.975 = 0.65g$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Response Modification Factor $R$",
+        "content": "From ASCE 7-16 Table 12.2-1, for reinforced concrete special moment frame (Type C1):\n\n$$R = 8, \\quad \\Omega_0 = 3, \\quad C_d = 5.5$$"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Seismic Response Coefficient $C_s$",
+        "content": "Using ASCE 7-16 Equation 12.8-2:\n\n$$C_s = \\frac{S_{DS}}{R/I_e}$$\n\nFor Risk Category II, $I_e = 1.0$\n\n$$C_s = \\frac{1.23}{8/1.0} = 0.154$$\n\n**Check upper limit** from Equation 12.8-3:\n\n$$C_s \\leq \\frac{S_{D1}}{T \\times R/I_e} = \\frac{0.65}{0.85 \\times 8/1.0} = \\frac{0.65}{6.8} = 0.096$$\n\n**Check lower limit** from Equation 12.8-5:\n\n$$C_s \\geq 0.044 \\times S_{DS} \\times I_e = 0.044 \\times 1.23 \\times 1.0 = 0.054$$\n\nAlso check: $C_s \\geq 0.01$ (minimum)\n\n**Controlling $C_s = 0.096$** (upper limit governs)"
+      },
+      {
+        "step": 5,
+        "title": "Calculate Seismic Base Shear $V$",
+        "content": "Using ASCE 7-16 Equation 12.8-1:\n\n$$V = C_s \\times W = 0.096 \\times 25,000 \\text{ kips} = 2,400 \\text{ kips}$$"
+      }
+    ],
+    "final_answer": "The seismic base shear $V = 2,400$ kips. Note: The upper limit of $C_s$ governed because the building period $T = 0.85$ sec is less than $T_L$ (typically 8-12 seconds for most of California), indicating the building is in the constant acceleration region of the response spectrum.",
+    "units": "kips",
+    "answer_value": 2400
+  },
+  {
+    "id": "seismic-002",
+    "title": "Vertical Distribution of Seismic Forces",
+    "code": "ASCE 7-16",
+    "codeSection": "Section 12.8.3",
+    "difficulty": "Moderate",
+    "category": "Seismic Loads",
+    "problem": "A 6-story steel building has a calculated seismic base shear of 450 kips. The story weights and heights are: Floor 1 (base): 0 kips at 0 ft; Floor 2: 600 kips at 15 ft; Floor 3: 580 kips at 28 ft; Floor 4: 560 kips at 41 ft; Floor 5: 550 kips at 54 ft; Floor 6 (roof): 400 kips at 67 ft. The fundamental period $T = 0.65$ seconds. Distribute the seismic forces to each floor level.",
+    "given": [
+      "Seismic base shear $V = 450$ kips",
+      "Fundamental period $T = 0.65$ seconds",
+      "Floor 2: $w_2 = 600$ kips at $h_2 = 15$ ft",
+      "Floor 3: $w_3 = 580$ kips at $h_3 = 28$ ft",
+      "Floor 4: $w_4 = 560$ kips at $h_4 = 41$ ft",
+      "Floor 5: $w_5 = 550$ kips at $h_5 = 54$ ft",
+      "Floor 6 (roof): $w_6 = 400$ kips at $h_6 = 67$ ft",
+      "Total building weight $W = 2,690$ kips"
+    ],
+    "required": "Calculate the seismic force at each floor level using the vertical distribution procedure.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Exponent $k$",
+        "content": "From ASCE 7-16 Section 12.8.3, the exponent $k$ depends on building period:\n\n- For $T \\leq 0.5$ sec: $k = 1.0$\n- For $T \\geq 2.5$ sec: $k = 2.0$\n- For $0.5 < T < 2.5$ sec:\n\n$$k = 1.0 + 0.5(T - 0.5) = 1.0 + 0.5(0.65 - 0.5)$$\n\n$$k = 1.0 + 0.075 = 1.075$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Distribution Factor $C_{vx}$",
+        "content": "$$C_{vx} = \\frac{w_x \\times h_x^k}{\\sum(w_i \\times h_i^k)}$$\n\nCalculate $w_i \\times h_i^k$ for each floor:\n\n- Floor 2: $600 \\times (15)^{1.075} = 600 \\times 17.45 = 10,470$\n- Floor 3: $580 \\times (28)^{1.075} = 580 \\times 34.44 = 19,975$\n- Floor 4: $560 \\times (41)^{1.075} = 560 \\times 52.08 = 29,165$\n- Floor 5: $550 \\times (54)^{1.075} = 550 \\times 70.29 = 38,660$\n- Floor 6: $400 \\times (67)^{1.075} = 400 \\times 89.04 = 35,616$\n\n$$\\sum(w_i \\times h_i^k) = 133,886$$"
+      },
+      {
+        "step": 3,
+        "title": "Calculate $C_{vx}$ for Each Floor",
+        "content": "$$C_{v2} = \\frac{10,470}{133,886} = 0.078$$\n\n$$C_{v3} = \\frac{19,975}{133,886} = 0.149$$\n\n$$C_{v4} = \\frac{29,165}{133,886} = 0.218$$\n\n$$C_{v5} = \\frac{38,660}{133,886} = 0.289$$\n\n$$C_{v6} = \\frac{35,616}{133,886} = 0.266$$\n\nCheck: $\\sum C_{vx} = 1.000$ ✓"
+      },
+      {
+        "step": 4,
+        "title": "Calculate Seismic Force at Each Floor",
+        "content": "$$F_x = C_{vx} \\times V$$\n\n- $F_2 = 0.078 \\times 450 = 35.1$ kips\n- $F_3 = 0.149 \\times 450 = 67.1$ kips\n- $F_4 = 0.218 \\times 450 = 98.1$ kips\n- $F_5 = 0.289 \\times 450 = 130.1$ kips\n- $F_6 = 0.266 \\times 450 = 119.7$ kips\n\nCheck: $\\sum F_x = 450$ kips ✓"
+      }
+    ],
+    "final_answer": "Seismic forces at each floor level: $F_2 = 35.1$ kips, $F_3 = 67.1$ kips, $F_4 = 98.1$ kips, $F_5 = 130.1$ kips, $F_6 = 119.7$ kips. Total = 450 kips. Note: The forces increase with height, with the maximum force at Floor 5 (not the roof, due to the smaller roof weight).",
+    "units": "kips",
+    "answer_value": 450
+  },
+  {
+    "id": "seismic-003",
+    "title": "Seismic Design Category Determination",
+    "code": "ASCE 7-16",
+    "codeSection": "Sections 11.6 and 12.2",
+    "difficulty": "Moderate",
+    "category": "Seismic Loads",
+    "problem": "Determine the Seismic Design Category (SDC) for a hospital building located in Seattle, Washington. The site has Site Class C soil conditions. The mapped spectral accelerations are $S_s = 0.65g$ and $S_1 = 0.25g$. The building is 8 stories tall with a fundamental period of 1.2 seconds.",
+    "given": [
+      "Building type: Hospital (Risk Category IV)",
+      "Site Class: C",
+      "Mapped spectral accelerations: $S_s = 0.65g$, $S_1 = 0.25g$",
+      "Number of stories: 8",
+      "Fundamental period $T = 1.2$ seconds"
+    ],
+    "required": "Determine the Seismic Design Category (SDC) for this building.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Site Coefficients $F_a$ and $F_v$",
+        "content": "From ASCE 7-16 Table 11.4-1 for Site Class C with $S_s = 0.65g$:\n$$F_a = 1.2$$ (interpolated between $F_a = 1.2$ at $S_s = 0.5$ and $F_a = 1.2$ at $S_s = 0.75$)\n\nFrom ASCE 7-16 Table 11.4-2 for Site Class C with $S_1 = 0.25g$:\n$$F_v = 1.5$$"
+      },
+      {
+        "step": 2,
+        "title": "Calculate Adjusted Spectral Accelerations",
+        "content": "$$S_{MS} = F_a \\times S_s = 1.2 \\times 0.65 = 0.78g$$\n\n$$S_{M1} = F_v \\times S_1 = 1.5 \\times 0.25 = 0.375g$$\n\n$$S_{DS} = \\frac{2}{3} \\times S_{MS} = \\frac{2}{3} \\times 0.78 = 0.52g$$\n\n$$S_{D1} = \\frac{2}{3} \\times S_{M1} = \\frac{2}{3} \\times 0.375 = 0.25g$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine SDC Based on Short Period (Table 11.6-1)",
+        "content": "For Risk Category IV and $S_{DS} = 0.52g$:\n\nFrom Table 11.6-1, for $S_{DS}$ between 0.50g and 0.67g:\n\n**SDC = D**"
+      },
+      {
+        "step": 4,
+        "title": "Determine SDC Based on 1-Second Period (Table 11.6-2)",
+        "content": "For Risk Category IV and $S_{D1} = 0.25g$:\n\nFrom Table 11.6-2, for $S_{D1}$ between 0.20g and 0.30g:\n\n**SDC = D**"
+      },
+      {
+        "step": 5,
+        "title": "Determine Final SDC",
+        "content": "Per ASCE 7-16 Section 11.6, the more severe SDC from Tables 11.6-1 and 11.6-2 governs.\n\nBoth tables indicate **SDC = D**.\n\nAdditionally, check if building can be assigned to SDC E or F:\n\n$$T_S = \\frac{S_{D1}}{S_{DS}} = \\frac{0.25}{0.52} = 0.48 \\text{ sec}$$\n\nSince $T = 1.2$ sec $> T_S = 0.48$ sec, the building is in the long-period region.\n\nNeither $S_s \\geq 1.5g$ nor $S_1 \\geq 0.6g$, so SDC E or F is not triggered."
+      }
+    ],
+    "final_answer": "The Seismic Design Category is **SDC D**. This requires special seismic detailing and a lateral force-resisting system from the prequalified systems in Table 12.2-1 with appropriate height limits and $R$ factors.",
+    "units": "N/A",
+    "answer_value": 4
+  },
+  {
+    "id": "seismic-004",
+    "title": "Overturning Moment from Seismic Forces",
+    "code": "ASCE 7-16",
+    "codeSection": "Section 12.8",
+    "difficulty": "Moderate",
+    "category": "Seismic Loads",
+    "problem": "Calculate the overturning moment at the base of a 4-story building from seismic forces. The story forces and heights are: $F_1 = 50$ kips at 12 ft, $F_2 = 80$ kips at 24 ft, $F_3 = 100$ kips at 36 ft, $F_4 = 70$ kips at 48 ft. Determine the overturning moment that must be resisted by the foundation.",
+    "given": [
+      "Floor 1 force: $F_1 = 50$ kips at $h_1 = 12$ ft",
+      "Floor 2 force: $F_2 = 80$ kips at $h_2 = 24$ ft",
+      "Floor 3 force: $F_3 = 100$ kips at $h_3 = 36$ ft",
+      "Floor 4 (roof) force: $F_4 = 70$ kips at $h_4 = 48$ ft",
+      "Total base shear $V = 300$ kips"
+    ],
+    "required": "Calculate the total overturning moment at the base of the building.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Calculate Moment from Each Floor Force",
+        "content": "The overturning moment is calculated as the sum of each floor force multiplied by its height above the base:\n\n$$M_1 = F_1 \\times h_1 = 50 \\times 12 = 600 \\text{ kip-ft}$$\n\n$$M_2 = F_2 \\times h_2 = 80 \\times 24 = 1,920 \\text{ kip-ft}$$\n\n$$M_3 = F_3 \\times h_3 = 100 \\times 36 = 3,600 \\text{ kip-ft}$$\n\n$$M_4 = F_4 \\times h_4 = 70 \\times 48 = 3,360 \\text{ kip-ft}$$"
+      },
+      {
+        "step": 2,
+        "title": "Sum Overturning Moments",
+        "content": "Total overturning moment:\n\n$$M_T = M_1 + M_2 + M_3 + M_4$$\n\n$$M_T = 600 + 1,920 + 3,600 + 3,360 = 9,480 \\text{ kip-ft}$$"
+      },
+      {
+        "step": 3,
+        "title": "Check Against Simplified Method",
+        "content": "The effective height can be calculated as:\n\n$$h_{eff} = \\frac{M_T}{V} = \\frac{9,480}{300} = 31.6 \\text{ ft}$$\n\nThis represents the point of application of the resultant seismic force, which is reasonable for a 4-story building (approximately 66% of total height)."
+      }
+    ],
+    "final_answer": "The total overturning moment at the base is $M_T = 9,480$ kip-ft. This moment must be resisted by the foundation system, and the building's stabilizing dead load (with appropriate factors) must exceed this overturning moment to prevent uplift.",
+    "units": "kip-ft",
+    "answer_value": 9480
+  },
+  {
+    "id": "seismic-001-ds",
+    "title": "Seismic Base Shear Calculation for a Building",
+    "code": "ASCE 7-16",
+    "codeSection": "Chapter 12 (Seismic Design Requirements)",
+    "difficulty": "Difficult",
+    "category": "Seismic Loads",
+    "problem": "A four-story office building is located in Charleston, South Carolina (Risk Category II). The building has a steel special moment frame (SMF) as the lateral force-resisting system in both directions. The total dead load is 200 psf, and the floor plan is 100 ft × 100 ft on all levels. The roof dead load is also 200 psf. The building height is 60 ft above grade. Site Class D (Stiff Soil) has been determined from geotechnical investigation. The mapped spectral accelerations are $S_s = 0.75g$ and $S_1 = 0.30g$. Determine the seismic base shear for the building using the equivalent lateral force (ELF) procedure.",
+    "given": [
+      "Risk Category II (from IBC 2018 Table 1604.5)",
+      "Seismic Force-Resisting System: Steel Special Moment Frame (SMF)",
+      "Site Class D",
+      "$S_s = 0.75g$, $S_1 = 0.30g$",
+      "Building dimensions: 100 ft × 100 ft plan",
+      "Number of stories: 4",
+      "Story height: 15 ft each (total height $h_n = 60$ ft)",
+      "Floor dead load: 200 psf (typical)",
+      "Roof dead load: 200 psf",
+      "Ignore partitions and cladding for dead load calculation (structural dead load only)"
+    ],
+    "required": "Calculate the seismic base shear $V$ (in kips) using ASCE 7-16.",
+    "solution_steps": [
+      {
+        "step": 1,
+        "title": "Determine Seismic Design Category and Importance Factor",
+        "content": "From ASCE 7-16 Table 1.5-2, for Risk Category II: $I_e = 1.0$.\n\nFrom ASCE 7-16 Tables 11.6-1 and 11.6-2, with $S_s = 0.75g$ and $S_1 = 0.30g$ for Risk Category II, we need to check if the building is SDC C, D, or E. We will determine $F_a$ and $F_v$ first to confirm."
+      },
+      {
+        "step": 2,
+        "title": "Determine Site Coefficients and Design Spectral Accelerations",
+        "content": "From ASCE 7-16 Table 11.4-1 (Site Coefficient $F_a$): For Site Class D and $S_s = 0.75$, interpolate between $S_s = 0.5$ ($F_a = 1.4$) and $S_s = 0.75$ ($F_a = 1.3$) and $S_s = 1.0$ ($F_a = 1.2$).\n\nFor $S_s = 0.75$, $F_a = 1.3$.\n\nFrom ASCE 7-16 Table 11.4-2 (Site Coefficient $F_v$): For Site Class D and $S_1 = 0.30$, interpolate between $S_1 = 0.2$ ($F_v = 2.0$) and $S_1 = 0.3$ ($F_v = 1.8$) and $S_1 = 0.4$ ($F_v = 1.6$).\n\nFor $S_1 = 0.30$, $F_v = 1.8$.\n\nAdjusted spectral accelerations per Section 11.4.4:\n$$S_{MS} = F_a S_s = 1.3 \\times 0.75 = 0.975g$$\n$$S_{M1} = F_v S_1 = 1.8 \\times 0.30 = 0.54g$$\n\nDesign spectral accelerations per Section 11.4.5:\n$$S_{DS} = \\frac{2}{3} S_{MS} = \\frac{2}{3} \\times 0.975 = 0.65g$$\n$$S_{D1} = \\frac{2}{3} S_{M1} = \\frac{2}{3} \\times 0.54 = 0.36g$$"
+      },
+      {
+        "step": 3,
+        "title": "Determine Seismic Design Category (SDC)",
+        "content": "From ASCE 7-16 Table 11.6-1 (based on $S_{DS}$): For $S_{DS} = 0.65g$ and Risk Category II, SDC = D (since $S_{DS} \\ge 0.50g$).\n\nFrom ASCE 7-16 Table 11.6-2 (based on $S_{D1}$): For $S_{D1} = 0.36g$ and Risk Category II, SDC = D (since $S_{D1} \\ge 0.20g$).\n\nSDC = D (most severe governs)."
+      },
+      {
+        "step": 4,
+        "title": "Determine Response Modification Coefficient and Other Parameters",
+        "content": "From ASCE 7-16 Table 12.2-1, for Steel Special Moment Frames (A.1):\n$$R = 8$$\n$$\\Omega_0 = 3$$\n$$C_d = 5.5$$\n\nFrom Section 12.8.2, for SDC D and $S_{DS} = 0.65g$, the building is not permitted to use the ELF procedure if it has a structural irregularity. Assuming no irregularities, ELF is permitted."
+      },
+      {
+        "step": 5,
+        "title": "Calculate Building Weight (Seismic Mass)",
+        "content": "Floor area = $100 \\times 100 = 10,000$ sq ft.\n\nRoof weight = $10,000 \\times 200$ psf $= 2,000,000$ lbs $= 2,000$ kips.\nFloor weight (per level) = $10,000 \\times 200$ psf $= 2,000$ kips.\nTotal for 3 floors = $3 \\times 2,000 = 6,000$ kips.\n\nTotal seismic weight $W$:\n$$W = 6,000 + 2,000 = 8,000 \\text{ kips}$$"
+      },
+      {
+        "step": 6,
+        "title": "Determine Approximate Fundamental Period",
+        "content": "From ASCE 7-16 Section 12.8.2.1, for steel moment frames:\n$$T_a = C_t h_n^x$$\nFrom Table 12.8-2: $C_t = 0.028$, $x = 0.8$ (for steel moment frames).\n\n$$T_a = 0.028 \\times (60)^{0.8}$$\nFirst, $60^{0.8} = e^{0.8 \\times \\ln(60)} = e^{0.8 \\times 4.094} = e^{3.275} = 26.45$\n$$T_a = 0.028 \\times 26.45 = 0.741 \\text{ seconds}$$\n\nUpper limit for $T$ (Section 12.8.2): $C_u T_a$.\nFrom Table 12.8-1, for $S_{D1} = 0.36g \\ge 0.30g$, $C_u = 1.4$.\n$$T_{max} = C_u T_a = 1.4 \\times 0.741 = 1.037 \\text{ seconds}$$\nWe can use $T = T_a = 0.741$ sec for base shear calculation (conservative)."
+      },
+      {
+        "step": 7,
+        "title": "Calculate Seismic Response Coefficient $C_s$",
+        "content": "From ASCE 7-16 Equation 12.8-2:\n$$C_s = \\frac{S_{DS}}{R/I_e} = \\frac{0.65}{8/1.0} = \\frac{0.65}{8} = 0.08125$$\n\nCheck maximum $C_s$ from Equation 12.8-3 (for $T \\le T_L$):\n$$C_{s,max} = \\frac{S_{D1}}{T(R/I_e)} = \\frac{0.36}{0.741 \\times (8/1.0)} = \\frac{0.36}{5.928} = 0.06073$$\n\nCheck minimum $C_s$ from Equation 12.8-5 (for $S_{DS} \\ge 0.65g$, $T \\le 0.741$ sec):\n$$C_{s,min} = 0.044 S_{DS} I_e \\ge 0.01$$\n$$C_{s,min} = 0.044 \\times 0.65 \\times 1.0 = 0.0286 \\ge 0.01$$\n\nAlso check Equation 12.8-6 for $S_1 \\ge 0.6g$? No, $S_1 = 0.30g < 0.6g$, so not applicable.\n\nGoverning $C_s = \\min(0.08125, 0.06073) = 0.06073$, but not less than 0.0286.\n$$C_s = 0.06073$$"
+      },
+      {
+        "step": 8,
+        "title": "Calculate Seismic Base Shear",
+        "content": "ASCE 7-16 Equation 12.8-1:\n$$V = C_s W = 0.06073 \\times 8,000 \\text{ kips}$$\n$$V = 485.8 \\text{ kips}$$"
+      }
+    ],
+    "final_answer": "The seismic base shear for the building is $486$ kips.",
+    "units": "kips",
+    "answer_value": 486
+  }
+]
