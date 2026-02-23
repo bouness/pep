@@ -4,6 +4,11 @@
   "description": "PE Structural Prep App Configuration",
   "dataFiles": [
     {
+      "path": "/pep/data/concrete.json",
+      "enabled": true,
+      "description": "Load analysis and Design problems - Beams, Columns, Slabs, and Foundations"
+    },
+    {
       "path": "/pep/data/bridge.json",
       "enabled": true,
       "description": "Load analysis problems - wind, seismic, snow, load combinations"
