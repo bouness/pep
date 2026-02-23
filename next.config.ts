@@ -5,8 +5,7 @@ const nextConfig: NextConfig = {
   basePath: "/pep",
   assetPrefix: "/pep/",
   images: {
-    loader: "akamai", // Recommended for static images on GitHub Pages
-    path: "",
+    unoptimized: true,
   },
   typescript: {
     ignoreBuildErrors: true,

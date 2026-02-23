@@ -5,28 +5,38 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node.js
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
+
       - name: Install dependencies
         run: npm ci
-      - name: Build with Next.js 🏗️
+
+      - name: Build
         run: npm run build
-      - name: Upload artifact 📡
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
-      - name: Deploy to GitHub Pages 🚀
-        id: deployment
+
+      - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
-        permissions:
-          contents: read
-          pages: write
-          id-token: write
