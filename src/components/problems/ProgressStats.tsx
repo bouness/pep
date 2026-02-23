@@ -3,6 +3,7 @@
 import { Problem } from '@/types/problems';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
 
 interface ProgressStatsProps {
   problems: Problem[];
@@ -14,40 +15,33 @@ export function ProgressStats({ problems, solvedProblems, bookmarkedProblems }: 
   const totalProblems = problems.length;
   const solvedCount = solvedProblems.length;
   const bookmarkedCount = bookmarkedProblems.length;
-  const progressPercentage = totalProblems > 0 ? (solvedCount / totalProblems) * 100 : 0;
+  const progressPercent = totalProblems > 0 ? (solvedCount / totalProblems) * 100 : 0;
 
-  // Calculate stats by category
+  // Group problems by category
   const categoryStats = problems.reduce((acc, problem) => {
-    if (!acc[problem.category]) {
-      acc[problem.category] = { total: 0, solved: 0 };
+    const cat = problem.category;
+    if (!acc[cat]) {
+      acc[cat] = { total: 0, solved: 0 };
     }
-    acc[problem.category].total++;
+    acc[cat].total++;
     if (solvedProblems.includes(problem.id)) {
-      acc[problem.category].solved++;
+      acc[cat].solved++;
     }
     return acc;
   }, {} as Record<string, { total: number; solved: number }>);
 
-  // Calculate stats by difficulty
+  // Group problems by difficulty
   const difficultyStats = problems.reduce((acc, problem) => {
-    if (!acc[problem.difficulty]) {
-      acc[problem.difficulty] = { total: 0, solved: 0 };
+    const diff = problem.difficulty;
+    if (!acc[diff]) {
+      acc[diff] = { total: 0, solved: 0 };
     }
-    acc[problem.difficulty].total++;
+    acc[diff].total++;
     if (solvedProblems.includes(problem.id)) {
-      acc[problem.difficulty].solved++;
+      acc[diff].solved++;
     }
     return acc;
   }, {} as Record<string, { total: number; solved: number }>);
-
-  const categoryColors: Record<string, string> = {
-    'Wind Loads': 'bg-blue-500',
-    'Seismic Loads': 'bg-purple-500',
-    'Steel Design': 'bg-gray-500',
-    'Concrete Design': 'bg-green-500',
-    'Bridge Design': 'bg-indigo-500',
-    'Snow Loads': 'bg-cyan-500',
-  };
 
   const difficultyColors: Record<string, string> = {
     'Moderate': 'bg-yellow-500',
@@ -56,17 +50,17 @@ export function ProgressStats({ problems, solvedProblems, bookmarkedProblems }: 
   };
 
   return (
-    <div className="grid gap-4 md:grid-cols-3">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {/* Overall Progress */}
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium">Overall Progress</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{solvedCount}/{totalProblems}</div>
-          <Progress value={progressPercentage} className="mt-2" />
+          <div className="text-2xl font-bold">{solvedCount} / {totalProblems}</div>
+          <Progress value={progressPercent} className="mt-2" />
           <p className="text-xs text-muted-foreground mt-1">
-            {progressPercentage.toFixed(0)}% complete
+            {progressPercent.toFixed(1)}% complete
           </p>
         </CardContent>
       </Card>
@@ -84,65 +78,51 @@ export function ProgressStats({ problems, solvedProblems, bookmarkedProblems }: 
         </CardContent>
       </Card>
 
-      {/* Study Time */}
+      {/* Difficulty Breakdown */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium">Study Goals</CardTitle>
+          <CardTitle className="text-sm font-medium">By Difficulty</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{solvedCount * 6} min</div>
-          <p className="text-xs text-muted-foreground mt-1">
-            Estimated study time (6 min/problem)
-          </p>
-        </CardContent>
-      </Card>
-
-      {/* Category Breakdown */}
-      <Card className="md:col-span-2">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium">Progress by Category</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
-            {Object.entries(categoryStats).map(([category, stats]) => (
-              <div key={category} className="space-y-1">
-                <div className="flex justify-between text-sm">
-                  <span>{category}</span>
-                  <span>{stats.solved}/{stats.total}</span>
+          <div className="space-y-2">
+            {Object.entries(difficultyStats).map(([difficulty, stats]) => (
+              <div key={difficulty} className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className={`w-3 h-3 rounded-full ${difficultyColors[difficulty]}`} />
+                  <span className="text-sm">{difficulty}</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className={`h-2 rounded-full ${categoryColors[category] || 'bg-gray-500'}`}
-                    style={{ width: `${(stats.solved / stats.total) * 100}%` }}
-                  />
-                </div>
+                <Badge variant="secondary">
+                  {stats.solved} / {stats.total}
+                </Badge>
               </div>
             ))}
           </div>
         </CardContent>
       </Card>
 
-      {/* Difficulty Breakdown */}
-      <Card>
+      {/* Category Breakdown */}
+      <Card className="md:col-span-2 lg:col-span-3">
         <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium">Progress by Difficulty</CardTitle>
+          <CardTitle className="text-sm font-medium">Progress by Category</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-3">
-            {Object.entries(difficultyStats).map(([difficulty, stats]) => (
-              <div key={difficulty} className="space-y-1">
-                <div className="flex justify-between text-sm">
-                  <span>{difficulty}</span>
-                  <span>{stats.solved}/{stats.total}</span>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {Object.entries(categoryStats).map(([category, stats]) => {
+              const percent = (stats.solved / stats.total) * 100;
+              return (
+                <div key={category} className="space-y-1">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium truncate mr-2">
+                      {category.replace('-', ' - ')}
+                    </span>
+                    <span className="text-muted-foreground">
+                      {stats.solved}/{stats.total}
+                    </span>
+                  </div>
+                  <Progress value={percent} className="h-2" />
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className={`h-2 rounded-full ${difficultyColors[difficulty] || 'bg-gray-500'}`}
-                    style={{ width: `${(stats.solved / stats.total) * 100}%` }}
-                  />
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </CardContent>
       </Card>

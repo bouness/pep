@@ -1,6 +1,6 @@
 'use client';
 
-import { FilterState, CATEGORIES } from '@/types/problems';
+import { FilterState, CategoryStructure } from '@/types/problems';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -16,6 +16,7 @@ interface FilterPanelProps {
   availableSubcategories: string[];
   problemCount: number;
   totalCount: number;
+  categories: CategoryStructure;
 }
 
 const difficultyColors: Record<string, string> = {
@@ -30,7 +31,8 @@ export function FilterPanel({
   availableCodes,
   availableSubcategories,
   problemCount,
-  totalCount 
+  totalCount,
+  categories
 }: FilterPanelProps) {
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
 
@@ -107,7 +109,7 @@ export function FilterPanel({
         <div>
           <h4 className="font-semibold mb-3 text-sm uppercase text-slate-600">Categories</h4>
           <div className="space-y-1">
-            {Object.entries(CATEGORIES).map(([categoryId, category]) => {
+            {Object.entries(categories).map(([categoryId, category]) => {
               const isExpanded = expandedCategories.includes(categoryId);
               const isSelected = filters.categories.includes(categoryId);
               const relevantSubcategories = category.subcategories.filter(
@@ -116,7 +118,7 @@ export function FilterPanel({
               
               return (
                 <div key={categoryId} className="border rounded-lg">
-                  <div className="flex items-center">
+                  <div title={category.title} className="flex items-center">
                     <Checkbox
                       id={`category-${categoryId}`}
                       checked={isSelected}

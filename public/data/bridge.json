@@ -5,7 +5,8 @@
     "code": "AASHTO LRFD 8th Edition",
     "codeSection": "Article 3.6.1",
     "difficulty": "Moderate",
-    "category": "Bridge Design",
+    "category": "analysis-loads",
+    "subcategory": "bridge",
     "problem": "Calculate the unfactored live load moment for the Strength I limit state for an interior girder of a simple span bridge. The span length is 85 feet, and the girder spacing is 8.5 feet. Use the HL-93 loading with appropriate distribution factors.",
     "given": [
       "Span length L = 85 ft (simple span)",
@@ -20,7 +21,7 @@
       {
         "step": 1,
         "title": "Calculate Design Truck Moment",
-        "content": "For HL-93 Design Truck (3-axle truck): Axle loads = 8 kips, 32 kips, 32 kips. Axle spacings: 14 ft variable (between front and first rear), 14 ft (between rear axles). For maximum moment on simple span, place truck to maximize midspan moment. Critical position: Heaviest axles near midspan. Using influence lines or standard formulas: For L = 85 ft with design truck positioned optimally: M_truck ≈ 32 × (L/4 - L²/4×14/L) + 32 × L/4 + 8 × (L/4 - 14). Actually, using standard formula: M_truck = 72L - 288 for L ≥ 40 ft (approximately). For L = 85 ft: M_truck ≈ 72(85) - 288 = 5,832 kip-ft. More precisely using structural analysis: M_truck = 1,298 kip-ft (single lane, per AASHTO tables). Actually, calculate exactly: Place rear axle at 14/2 = 7 ft from midspan. M_truck ≈ 1,350 kip-ft (approximate for 85 ft span)."
+        "content": "For HL-93 Design Truck (3-axle truck):\nAxle loads = 8 kips, 32 kips, 32 kips.\nAxle spacings:\n14 ft variable (between front and first rear), 14 ft (between rear axles).\nFor maximum moment on simple span, place truck to maximize midspan moment.\nCritical position:\nHeaviest axles near midspan.\nUsing influence lines or standard formulas:\nFor L = 85 ft with design truck positioned optimally:\nM_truck ≈ 32 × (L/4 - L²/4×14/L) + 32 × L/4 + 8 × (L/4 - 14).\nActually, using standard formula:\nM_truck = 72L - 288 for L ≥ 40 ft (approximately).\nFor L = 85 ft:\nM_truck ≈ 72(85) - 288 = 5,832 kip-ft.\nMore precisely using structural analysis:\nM_truck = 1,298 kip-ft (single lane, per AASHTO tables).\nActually, calculate exactly:\nPlace rear axle at 14/2 = 7 ft from midspan.\nM_truck ≈ 1,350 kip-ft (approximate for 85 ft span)."
       },
       {
         "step": 2,

@@ -32,9 +32,6 @@ import {
 
 type ViewMode = 'practice' | 'exam' | 'bookmarks' | 'stats';
 
-const PROBLEMS_PER_PAGE = 5;
-const PAGE_OPTIONS = [5, 10, 20, 50];
-
 function MainApp() {
   const { logout } = useAuth();
   const {
@@ -49,6 +46,8 @@ function MainApp() {
     toggleBookmark,
     availableCodes,
     availableSubcategories,
+    categories,
+    settings,
   } = useProblemData();
 
   const [viewMode, setViewMode] = useState<ViewMode>('practice');
@@ -61,9 +60,9 @@ function MainApp() {
   // Search state
   const [searchQuery, setSearchQuery] = useState('');
   
-  // Pagination state
+  // Pagination state - use settings from config
   const [currentPage, setCurrentPage] = useState(1);
-  const [problemsPerPage, setProblemsPerPage] = useState(PROBLEMS_PER_PAGE);
+  const [problemsPerPage, setProblemsPerPage] = useState(settings.problemsPerPage);
 
   // Filter problems with search
   const searchedProblems = useMemo(() => {
@@ -164,6 +163,11 @@ function MainApp() {
   // Clear search
   const clearSearch = () => {
     setSearchQuery('');
+  };
+
+  // Get category color
+  const getCategoryColor = (categoryId: string): string => {
+    return categories[categoryId]?.color || 'bg-gray-100 text-gray-800';
   };
 
   const currentProblem = displayedProblems[currentProblemIndex];
@@ -295,6 +299,8 @@ function MainApp() {
                     </div>
                     <div className="flex-1">
                       <ProblemCard
+                        pid={index + 1}
+                        cate={categories[problem.category]?.title}
                         problem={problem}
                         isSolved={progress.solvedProblems.includes(problem.id)}
                         isBookmarked={true}
@@ -328,7 +334,7 @@ function MainApp() {
                   {isExamMode ? (
                     <div className="space-y-2">
                       <Timer
-                        durationMinutes={60}
+                        durationMinutes={settings.examDurationMinutes}
                         isRunning={timerRunning}
                         onToggle={() => setTimerRunning(!timerRunning)}
                         onReset={() => setTimerRunning(false)}
@@ -351,7 +357,7 @@ function MainApp() {
                       onClick={startExamMode}
                     >
                       <Clock className="h-4 w-4 mr-2" />
-                      Start 60-Min Exam
+                      Start {settings.examDurationMinutes}-Min Exam
                     </Button>
                   )}
                 </CardContent>
@@ -379,6 +385,7 @@ function MainApp() {
                 availableSubcategories={availableSubcategories}
                 problemCount={displayedProblems.length}
                 totalCount={problems.length}
+                categories={categories}
               />
             </div>
 
@@ -418,7 +425,7 @@ function MainApp() {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          {PAGE_OPTIONS.map(opt => (
+                          {settings.pageOptions.map(opt => (
                             <SelectItem key={opt} value={String(opt)}>{opt}</SelectItem>
                           ))}
                         </SelectContent>
@@ -473,6 +480,7 @@ function MainApp() {
                 currentProblem && (
                   <ProblemCard
                     key={currentProblem.id}
+                    pid={currentProblemIndex + 1}
                     problem={currentProblem}
                     isSolved={progress.solvedProblems.includes(currentProblem.id)}
                     isBookmarked={progress.bookmarkedProblems.includes(currentProblem.id)}
@@ -489,6 +497,7 @@ function MainApp() {
                       <div key={problem.id} className="flex gap-4">
                           <ProblemCard
                             pid={startIndex + index + 1}
+                            cate={categories[problem.category]?.title}
                             problem={problem}
                             isSolved={progress.solvedProblems.includes(problem.id)}
                             isBookmarked={progress.bookmarkedProblems.includes(problem.id)}

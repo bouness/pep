@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { MathText } from '@/components/Math';
+import { ProblemImageDisplay } from '@/components/ProblemImage';
 import { 
   ChevronDown, 
   ChevronUp, 
@@ -15,11 +16,13 @@ import {
   Bookmark,
   BookmarkCheck,
   Lightbulb,
-  Calculator
+  Calculator,
+  ImageIcon
 } from 'lucide-react';
 
 interface ProblemCardProps {
   pid?: number;
+  cate?: string;
   problem: Problem;
   isSolved: boolean;
   isBookmarked: boolean;
@@ -35,16 +38,16 @@ const difficultyColors = {
   'Very Difficult': 'bg-red-100 text-red-800 border-red-300',
 };
 
-const categoryColors: Record<string, string> = {
-  'analysis-loads': 'bg-blue-100 text-blue-800',
-  'analysis-forces': 'bg-indigo-100 text-indigo-800',
-  'temporary-structures': 'bg-amber-100 text-amber-800',
-  'design-materials': 'bg-emerald-100 text-emerald-800',
-  'design-components': 'bg-purple-100 text-purple-800',
-};
+// Capitalize the first letter of every word (Title Case) 
+function toTitleCase(str: string) {
+  return str.split(' ').map(word => {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  }).join(' ');
+}
 
 export function ProblemCard({ 
   pid, 
+  cate, 
   problem, 
   isSolved, 
   isBookmarked,
@@ -53,6 +56,12 @@ export function ProblemCard({
   showSolution,
   onToggleSolution
 }: ProblemCardProps) {
+
+  // Check if problem has any images
+  const hasProblemImage = !!problem.problemImage;
+  const hasFinalImage = !!problem.finalImage;
+  const hasStepImages = problem.solution_steps.some(step => step.image);
+  const hasAnyImage = hasProblemImage || hasFinalImage || hasStepImages;
 
   return (
     <Card className={`w-full transition-all duration-300 ${isSolved ? 'ring-2 ring-green-400' : ''}`}>
@@ -63,8 +72,9 @@ export function ProblemCard({
               <Badge variant="outline" className="bg-slate-100 rounded-full flex items-center justify-center text-sm font-semibold text-slate-600">
                 <span title={problem.id}>{pid}</span>
               </Badge>
-              <Badge variant="outline" className={categoryColors[problem.category] || 'bg-gray-100'}>
-                {problem.category.replace('-', ' - ')}
+              <Badge variant="outline" className="bg-slate-100">
+                {/* <span title={cate}>{toTitleCase(problem.category.replace('-', ' | '))}</span> */}
+                {cate}
               </Badge>
               <Badge variant="outline" className={difficultyColors[problem.difficulty]}>
                 {problem.difficulty}
@@ -75,6 +85,12 @@ export function ProblemCard({
               <Badge variant="outline" className="text-xs">
                 {problem.codeSection}
               </Badge>
+              {hasAnyImage && (
+                <Badge variant="outline" className="text-xs bg-blue-50 text-blue-600">
+                  <ImageIcon className="h-3 w-3 mr-1" />
+                  Figure
+                </Badge>
+              )}
             </div>
             <CardTitle className="text-lg leading-tight">{problem.title}</CardTitle>
           </div>
@@ -109,6 +125,10 @@ export function ProblemCard({
           <div className="text-slate-700 leading-relaxed">
             <MathText text={problem.problem} />
           </div>
+          {/* Problem Image */}
+          {problem.problemImage && (
+            <ProblemImageDisplay image={problem.problemImage} />
+          )}
         </div>
 
         {/* Given Data */}
@@ -164,11 +184,18 @@ export function ProblemCard({
                         <span className="font-semibold text-left">
                           <MathText text={step.title} />
                         </span>
+                        {step.image && (
+                          <ImageIcon className="h-4 w-4 text-blue-400 ml-2" />
+                        )}
                       </span>
                     </AccordionTrigger>
                     <AccordionContent className="px-4 pb-4">
                       <div className="bg-slate-50 p-4 rounded-lg text-slate-700 leading-relaxed solution-content">
                         <MathText text={step.content} />
+                        {/* Step Image */}
+                        {step.image && (
+                          <ProblemImageDisplay image={step.image} />
+                        )}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -185,6 +212,10 @@ export function ProblemCard({
                   <div className="text-green-900 font-medium">
                     <MathText text={problem.final_answer} />
                   </div>
+                  {/* Final Answer Image */}
+                  {problem.finalImage && (
+                    <ProblemImageDisplay image={problem.finalImage} />
+                  )}
                 </div>
               </div>
             </div>
