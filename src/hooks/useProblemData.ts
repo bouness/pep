@@ -10,7 +10,7 @@ import {
 } from '@/types/problems';
 
 const STORAGE_KEY = 'pe-structural-progress';
-const CONFIG_PATH = '/data/config.json';
+const CONFIG_PATH = '/pep/data/config.json';
 
 const defaultProgress: UserProgress = {
   solvedProblems: [],

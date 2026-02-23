@@ -4,17 +4,17 @@
   "description": "PE Structural Prep App Configuration",
   "dataFiles": [
     {
-      "path": "/data/bridge.json",
+      "path": "/pep/data/bridge.json",
       "enabled": true,
       "description": "Load analysis problems - wind, seismic, snow, load combinations"
     },
     {
-      "path": "/data/loads.json",
+      "path": "/pep/data/loads.json",
       "enabled": true,
       "description": "Load analysis problems - wind, seismic, snow, load combinations"
     },
     {
-      "path": "/data/forces.json",
+      "path": "/pep/data/forces.json",
       "enabled": true,
       "description": "Force analysis problems - flexure, shear, buckling, deflection"
     }
